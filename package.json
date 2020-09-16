@@ -1,0 +1,17 @@
+{
+  "name": "surrender",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "author": "Lucas Boulle <mr.boullefigueiredo@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.0.2",
+    "@surrender/eslint-config": "*"
+  }
+}
