@@ -50,8 +50,8 @@ jobs:
     - name: Beanstalk Deploy for app
       uses: einaregilsson/beanstalk-deploy@v10
       with:
-        aws_access_key: ${{secrets.AWS_ACCESS_REACT_KEY_ID}}
-        aws_secret_key: ${{secrets.AWS_SECRET_ACCESS_REACT_KEY}}
+        aws_access_key: ${{secrets.AWS_ACCESS_KEY}}
+        aws_secret_key: ${{secrets.AWS_SECRET_KEY}}
         application_name: "surrender-production"
         environment_name: "SurrenderProduction-env"
         region: "sa-east-1"
