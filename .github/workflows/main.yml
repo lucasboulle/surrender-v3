@@ -4,9 +4,11 @@ name: Surrender ELB CI
 # Configure what events and branches you want to trigger your pipeline on, in this case I want it to be trgiggered when I push the code in react-profile branch
 on:
   push:
-    branches: [ master ]
-  paths:
-    - 'packages/server/**'
+    branches:
+      - master
+    paths:
+      - 'packages/server/**'
+      # - 'packages/another-package/**'
     
 # Create jobs to create your image which you can deploy on AWS, I am running my Node12 application on ubuntu OS. 
 jobs:
