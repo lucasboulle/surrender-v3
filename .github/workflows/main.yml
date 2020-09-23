@@ -1,0 +1,62 @@
+# specify the name of your project
+name: Surrender ELB CI 
+
+# Configure what events and branches you want to trigger your pipeline on, in this case I want it to be trgiggered when I push the code in react-profile branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    
+# Create jobs to create your image which you can deploy on AWS, I am running my Node12 application on ubuntu OS. 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+# In this step I am renaming my static main.js file by removing the auto-added hash from its name 
+    - name: rename main js
+      run: mv build/static/js/main.*.*.js build/static/js/main.js
+      
+# Creating my deployment package and compressing it into a zip file   
+    - name: Generate deployment package
+      run: zip -r deploy.zip * -x "**node_modules**"
+
+    - name: Get timestamp
+      uses: gerred/actions/current-time@master
+      id: current-time
+
+    - name: Run string replace
+      uses: frabert/replace-string-action@master
+      id: format-time
+      with:
+        pattern: '[:\.]+'
+        string: "${{ steps.current-time.outputs.time }}"
+        replace-with: '-'
+        flags: 'g'
+
+# Now, its time to deploy our package to Beanstalk that we've configured earlier, to deploy our app we need Secret keys that we can get from the AWS user, every user has separate keys on AWS. 
+
+    - name: Beanstalk Deploy for app
+      uses: einaregilsson/beanstalk-deploy@v10
+      with:
+        aws_access_key: ${{secrets.AWS_ACCESS_REACT_KEY_ID}}
+        aws_secret_key: ${{secrets.AWS_SECRET_ACCESS_REACT_KEY}}
+        application_name: "surrender-production"
+        environment_name: "SurrenderProduction-env"
+        region: "sa-east-1"
+        version_label: "surrender-production-${{ steps.format-time.outputs.replaced }}"
+        deployment_package: deploy.zip
+
+    - name: Deployed!
+      run: echo App deployed to ELB
