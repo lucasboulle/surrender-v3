@@ -11,7 +11,11 @@
   "author": "Lucas Boulle <mr.boullefigueiredo@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.0.2",
-    "@surrender/eslint-config": "*"
+    "@surrender/eslint-config": "*",
+    "nodemon": "^2.0.4",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "serve": "^11.3.2"
   }
 }
