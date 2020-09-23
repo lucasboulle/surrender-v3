@@ -5,8 +5,6 @@ name: Surrender ELB CI
 on:
   push:
     branches: [ master ]
-  paths:
-    - 'packages/server/**'
   pull_request:
     branches: [ master ]
     
