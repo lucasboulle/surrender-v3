@@ -8,7 +8,11 @@
       "noImplicitAny": true,
       "rootDir": ".",
       "outDir": "dist",
-      "esModuleInterop": true
+      "noEmit": true,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
   },
   "exclude": [
       "node_modules"
