@@ -5,7 +5,11 @@
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "connect-memcached": "*",
+    "express-session": "*",
+    "body-parser": "*",
+    "method-override": "*"
   },
   "devDependencies": {
     "ts-node-dev": "^1.0.0-pre.63",
