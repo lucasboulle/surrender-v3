@@ -8,9 +8,8 @@
       "noImplicitAny": true,
       "rootDir": ".",
       "outDir": "dist",
-      "noEmit": true,
-      "resolveJsonModule": true,
       "esModuleInterop": true,
+      "resolveJsonModule": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true
   },
