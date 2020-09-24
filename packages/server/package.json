@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@testing-library/react": "^11.0.4",
+    "@types/cors": "^2.8.7",
     "cors": "^2.8.5",
     "express": "^4.17.1"
   },
@@ -12,7 +14,9 @@
     "ts-node-dev": "^1.0.0-pre.63"
   },
   "scripts": {
-    "start": "tsnd --ignore node_modules --transpile-only --no-notify --respawn src/index.ts",
-    "dev": "serve -s build"
+    "dev": "tsnd --ignore node_modules --transpile-only --no-notify --respawn src/index.ts",
+    "build": "tsc --build",
+    "start": "node dist/src/index.js",
+    "dist": "sh ./scripts/dist.sh"
   }
 }

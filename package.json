@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
+  "outDir": "dist",
+  "esModuleInterop": true,
+  "allowJs": true,
   "workspaces": {
     "packages": [
       "packages/*"
@@ -17,5 +20,12 @@
   },
   "dependencies": {
     "serve": "^11.3.2"
-  }
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "start": "node dist/src/index.js"    
+  },
+  "exclude": [
+    "packages/web"
+  ]
 }

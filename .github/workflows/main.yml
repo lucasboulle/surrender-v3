@@ -45,6 +45,11 @@ jobs:
         replace-with: '-'
         flags: 'g'
 
+# Build project creating dist folder for ELB
+
+    - name: Build server project 
+      run: cd ./packages/server/ && yarn && yarn build
+
 # Now, its time to deploy our package to Beanstalk that we've configured earlier, to deploy our app we need Secret keys that we can get from the AWS user, every user has separate keys on AWS. 
 
     - name: Beanstalk Deploy for app
