@@ -30,7 +30,7 @@ jobs:
       
 # Creating my deployment package and compressing it into a zip file   
     - name: Generate deployment package
-      run: cd ./packages/server/ && zip -r deploy.zip * -x "**node_modules**" && mv deploy.zip ../../  && cd -
+      run: cd ./packages/server/ && yarn build && zip -r deploy.zip * -x "**node_modules**" && mv deploy.zip ../../  && cd -
 
     - name: Get timestamp
       uses: gerred/actions/current-time@master
