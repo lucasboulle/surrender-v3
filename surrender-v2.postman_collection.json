@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "9cb9ad70-02b7-4d19-a4f8-47c887f5d4d3",
+		"name": "surrender-v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/echo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/echo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"echo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/summoner/by-name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/summoner/by-name?summonerName=le%20dragon%20noir",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"summoner",
+						"by-name"
+					],
+					"query": [
+						{
+							"key": "summonerName",
+							"value": "le%20dragon%20noir"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/summoner/by-account",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/summoner/by-account?summonerAccount=plEJwOOMK6D6324DdyHzWHxW3fbL0tihbEqAmW6rG2oh9kI",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"summoner",
+						"by-account"
+					],
+					"query": [
+						{
+							"key": "summonerAccount",
+							"value": "plEJwOOMK6D6324DdyHzWHxW3fbL0tihbEqAmW6rG2oh9kI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/timelines/by-match",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/matchlist/by-account?summonerAccount=plEJwOOMK6D6324DdyHzWHxW3fbL0tihbEqAmW6rG2oh9kI",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"matchlist",
+						"by-account"
+					],
+					"query": [
+						{
+							"key": "summonerAccount",
+							"value": "plEJwOOMK6D6324DdyHzWHxW3fbL0tihbEqAmW6rG2oh9kI"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/match/by-id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/match/by-id?matchId=2050037507",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"match",
+						"by-id"
+					],
+					"query": [
+						{
+							"key": "matchId",
+							"value": "2050037507"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
