@@ -1,5 +1,7 @@
 # surrender-v2
 
+url base da instância: SurrenderProduction-env.eba-6qrriuvf.sa-east-1.elasticbeanstalk.com
+
 Coleção de endpoints na raiz do projeto
 
 Lucas Boulle 081170012
