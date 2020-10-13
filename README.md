@@ -8,7 +8,7 @@ A estrutura do projeto consiste em um mono repo, dentro da pasta packages é pos
     ├── ...
     ├── packages                # pasta na raíz do projeto
     │   ├── web                 # front-end
-    │   ├── server              # server 
+    │   ├── server              # server (api do projeto)
     │   └── es-lint             # regras compartilhadas de linting
     └── ...
 
