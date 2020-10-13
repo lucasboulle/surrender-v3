@@ -1,6 +1,9 @@
 # surrender-v2
 
+**VÍDEO DE DEMONSTRAÇÃO DA IMPLEMENTAÇÃO DO JWT NA RAÍZ DO PROJETO (surrenderv2-jwt.mp4)**
+
 url base da instância: SurrenderProduction-env.eba-6qrriuvf.sa-east-1.elasticbeanstalk.com
+
 
 A estrutura do projeto consiste em um mono repo, dentro da pasta packages é possível visualizar todos os projetos separados por pastas.
 
