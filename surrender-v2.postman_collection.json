@@ -1,10 +1,34 @@
 {
 	"info": {
-		"_postman_id": "9cb9ad70-02b7-4d19-a4f8-47c887f5d4d3",
+		"_postman_id": "86065320-7d98-4cb0-a1d0-978ef70faad5",
 		"name": "surrender-v2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "/auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"lucasboullefigueiredo@gmail.com\",\n    \"password\": teste\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "/echo",
 			"request": {
