@@ -11,7 +11,8 @@ import { authenticate, decodeUserToken, generateToken } from './Services/AuthSer
 
 const routes = express.Router()
 const unprotectedRoutes = [
-  '/auth/login'
+  '/auth/login',
+  '/echo'
 ]
 
 routes.use((request, response, next) => {
