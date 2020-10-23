@@ -1,25 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import GlobalStyle from './styles/global';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Container } from './styles/Container';
+import { HeaderTitleContainer } from './styles/HeaderTitleContainer';
+import Titles from './pages/Titles';
+
+const titleStyle = {
+  fontSize: 18, 
+  color: '#fff', 
+  textDecoration: 'none'
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Container>
+          <h1>Anilist</h1>
+          <HeaderTitleContainer>
+            <Link to="/titles" style={titleStyle}>Titles</Link>
+          </HeaderTitleContainer>
+        </Container>
+        <Switch>
+          <Route path="/titles" exact component={Titles} />
+        </Switch>
+      </Router>
+      <GlobalStyle />
+    </>
   );
 }
 

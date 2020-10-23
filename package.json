@@ -18,5 +18,8 @@
     "@types/mongodb": "^3.5.27",
     "typescript": "^4.0.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react-icons": "^3.11.0",
+    "styled-components": "^5.2.0"
+  }
 }
