@@ -1,18 +1,13 @@
 import React from 'react';
-import { Container, RowContainer } from './styles';
+import { Container, MainTitle, RowContainer } from './styles';
 import SearchBar from '../../components/SearchBar';
 import {
   makeStyles,
   Theme,
   createStyles,
-  GridList,
-  GridListTile,
-  GridListTileBar,
-  IconButton,
-  LinearProgress
 } from '@material-ui/core';
-import { InfoOutlined } from '@material-ui/icons';
-
+import waves from '../../images/gray-waves.png'
+import { useHistory } from 'react-router-dom'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -31,7 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
     progressBar: {
       maxHeight: 0,
       minWidth: '99%'
-      
+
+    },
+    image: {
+      borderRadius: 0
     }
 
   }),
@@ -39,38 +37,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Titles: React.FC = () => {
 
+  const history = useHistory()
+  const goToProfilePage = () =>  {
+    history.push('/about')
+  }
+
   const classes = useStyles()
-  const [page, setPage] = React.useState(0)
-  const [titles, setTitles] = React.useState<any>()
-
   return (
-    <Container>
-      <RowContainer>
-        <SearchBar onSearch={() => null} />
-      </RowContainer>
-      <RowContainer>
-        <GridList cellHeight={180} className={classes.gridList} cols={3}>
-          {titles ?
-            titles.map((title: any) => (
-              <GridListTile key={title.id}>
-                <img src={title.bannerImage || title.coverImage.extraLarge}/>
-                <GridListTileBar
-                  title={title.title.romaji}
-                  subtitle={title.title.native}
-                  actionIcon={
-                    <IconButton aria-label={`info about ${''}`} className={classes.icon} >
-                      <InfoOutlined />
-                    </IconButton>
-                  }
-                />
-
-              </GridListTile>
-            ))
-            :<LinearProgress className={classes.progressBar} />
-          }
-        </GridList>
-      </RowContainer>
-    </Container>
+    <>
+      <Container>
+        <RowContainer>
+          <MainTitle> Surrender.gg </MainTitle>
+        </RowContainer>
+        <RowContainer>
+          <SearchBar onSearch={() => { console.log('yo');  goToProfilePage()}}></SearchBar>
+        </RowContainer>
+      </Container>
+      <Container>
+        <img src={waves} style={{margin: 0}} />
+      </Container>
+    </>
   )
 }
 
