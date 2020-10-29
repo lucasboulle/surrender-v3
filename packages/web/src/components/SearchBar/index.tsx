@@ -25,12 +25,13 @@ const SearchBar = (props: Props) => {
 
   const classes = useStyles()
   const [text, setText] = React.useState<string>()
+  const { onSearch } = props
 
   const onSubmit = React.useCallback(() => {
     if(text) {
-      props.onSearch(text)
+      onSearch(text)
     }
-  }, [text])
+  }, [text, onSearch])
 
   return (
     <Container>
@@ -49,12 +50,6 @@ const SearchBar = (props: Props) => {
       </IconButton>
     </Container>
   )
-}
-
-const IconStyle = {
-  marginTop: 16,
-  marginRight: 5,
-  color: '#202020',
 }
 
 const searchBarStyle = {
