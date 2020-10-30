@@ -13,7 +13,7 @@ function App() {
           <Route path="/titles" exact component={Titles} />
           <Route path="/about" component={About} />
         </Switch>
-        <Redirect to="/titles"/>
+        <Redirect to="/about"/>
       </Router>
       <GlobalStyle />
     </>

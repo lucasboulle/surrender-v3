@@ -17,7 +17,7 @@ const Titles: React.FC = () => {
           <MainTitle> Surrender.gg </MainTitle>
         </RowContainer>
         <RowContainer>
-          <SearchBar onSearch={() => { console.log('yo');  goToProfilePage()}}></SearchBar>
+          <SearchBar onSearch={goToProfilePage}></SearchBar>
         </RowContainer>
       </Container>
       <Container>
