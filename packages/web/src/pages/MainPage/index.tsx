@@ -4,11 +4,11 @@ import SearchBar from '../../components/SearchBar';
 import waves from '../../images/gray-waves.png';
 import { useHistory } from 'react-router-dom';
 
-const Titles: React.FC = () => {
+const MainPage: React.FC = () => {
 
   const history = useHistory()
   const goToProfilePage = () =>  {
-    history.push('/about')
+    history.push('/profile')
   }
   return (
     <>
@@ -27,4 +27,4 @@ const Titles: React.FC = () => {
   )
 }
 
-export default Titles;
+export default MainPage;

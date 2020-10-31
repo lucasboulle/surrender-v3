@@ -1,19 +1,19 @@
 import React from 'react';
 import './App.css';
 import GlobalStyle from './styles/global';
-import Titles from './pages/Titles';
 import { Route, BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
-import About from './pages/About';
+import Profile from './pages/Profile';
+import MainPage from './pages/MainPage';
 
 function App() {
   return (
     <>
       <Router>
         <Switch>
-          <Route path="/titles" exact component={Titles} />
-          <Route path="/about" component={About} />
+          <Route path="/main" exact component={MainPage} />
+          <Route path="/profile" component={Profile} />
         </Switch>
-        <Redirect to="/about"/>
+        <Redirect to="/profile"/>
       </Router>
       <GlobalStyle />
     </>

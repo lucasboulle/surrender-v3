@@ -17,6 +17,10 @@ background: #4c566a;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
+border-bottom-width: 1px;
+border-bottom-color: #5e81ac;
+border-bottom-style: solid;
+
 `
 
 export const ProfileImage = styled.img`
@@ -46,6 +50,17 @@ justify-content: center;
 
 export const PlayedChampions = styled.div`
 height: 30%;
+background: #434c5e;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+border-bottom-width: 5px;
+border-bottom-color: #5e81ac;
+border-bottom-style: solid;
+`
+
+export const MatchList = styled.div`
+height: 40%;
 background: #434c5e;
 display: flex;
 flex-direction: row;
