@@ -36,7 +36,7 @@ width: 115px;
 height: 130px;
 ` 
 
-export const ProfileInfo = styled.text`
+export const ProfileInfo = styled.p`
 font-size: 15px;
 margin-top: 10px;
 `
