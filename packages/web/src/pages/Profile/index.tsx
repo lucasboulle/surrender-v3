@@ -28,6 +28,7 @@ import rivenExampleIcon from '../../images/riven-example-icon.jpeg'
 import blueWaves from '../../images/blue-waves.png'
 import { InfoRounded } from '@material-ui/icons'
 import { CartesianGrid, BarChart, XAxis, YAxis, Tooltip, Bar } from 'recharts'
+import { useHistory } from 'react-router-dom'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Profile: React.FC = () => {
   const classes = useStyles()
+  const history = useHistory()
   const [matchList, setMatchList] = React.useState<any>([
     { dale: 'dale' },
     { dale: 'dale' },
@@ -78,6 +80,10 @@ const Profile: React.FC = () => {
       name: 'Outra Riven foda-se', pv: 42, amt: 2290,
     },
   ]
+
+  const goToMatchPage = React.useCallback(() => {
+    history.push('/match')
+  }, [])
 
   const fetchMatchList = React.useCallback(
     async (term?: string) => {
@@ -145,7 +151,7 @@ const Profile: React.FC = () => {
                   title={'3/7/9 - 50:12'}
                   subtitle={'Solo/duo'}
                   actionIcon={
-                    <IconButton className={classes.icon} onClick={() => null}>
+                    <IconButton className={classes.icon} onClick={goToMatchPage}>
                       <InfoRounded />
                     </IconButton>
                   }
