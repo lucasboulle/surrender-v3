@@ -1,6 +1,6 @@
 # surrender-v2
 
-**VÍDEO DE DEMONSTRAÇÃO DA IMPLEMENTAÇÃO DO JWT NA RAÍZ DO PROJETO (surrenderv2-jwt.mp4)**
+**VÍDEO DE DEMONSTRAÇÃO DA IMPLEMENTAÇÃO DO JWT E FRONT END NA RAÍZ DO PROJETO (surrenderv2-jwt.mp4)**
 
 url base da instância: SurrenderProduction-env.eba-6qrriuvf.sa-east-1.elasticbeanstalk.com
 
