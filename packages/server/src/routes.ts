@@ -5,6 +5,7 @@ import {
   getMatchlistByAccount, 
   getSummonerByAccount, 
   getSummonerByName, 
+  getSummonerLeagueByAccount, 
   getTimelinesByMatch 
 } from './api/riot/RiotApiService'
 import { authenticate, decodeUserToken, generateToken } from './Services/AuthService'
@@ -26,12 +27,12 @@ routes.use((request, response, next) => {
       decodedToken = decodeUserToken(String(userToken))
     }
 
-    if(!userToken || !decodedToken) {
-      const accessDenied = new Error('Acesso negado')
-      response.statusCode = 400
+    // if(!userToken || !decodedToken) {
+    //   const accessDenied = new Error('Acesso negado')
+    //   response.statusCode = 400
 
-      next(accessDenied)
-    }
+    //   next(accessDenied)
+    // }
   }
 
   next()
@@ -53,27 +54,32 @@ routes.post('/auth/login', async (request, response) => {
 
 routes.get('/summoner/by-name', async (request, response) => {
   const { query } = request
-  return response.json({ message: await getSummonerByName(String(query.summonerName)) })
+  return response.json({ ...(await getSummonerByName(String(query.summonerName))) })
 })
 
 routes.get('/summoner/by-account', async (request, response) => {
   const { query } = request
-  return response.json({ message: await getSummonerByAccount(String(query.summonerAccount)) })
+  const summoner = await getSummonerByAccount(String(query.summonerAccount))
+  return response.json({ 
+    ...summoner,
+    ...(await getSummonerLeagueByAccount(String(summoner.id)))
+  })
 })
 
 routes.get('/match/by-id', async (request, response) => {
   const { query } = request
-  return response.json({ message: await getMatchById(String(query.matchId)) })
+  return response.json({ ...(await getMatchById(String(query.matchId))) })
 })
 
 routes.get('/matchlist/by-account', async (request, response) => {
   const { query } = request
-  return response.json({ message: await getMatchlistByAccount(String(query.summonerAccount)) })
+  return response.json({ ...(await getMatchlistByAccount(String(query.summonerAccount))) })
 })
 
 routes.get('/timelines/by-match', async (request, response) => {
   const { query } = request
   return response.json({ message: await getTimelinesByMatch(String(query.matchId)) })
 })
+
 
 export default routes

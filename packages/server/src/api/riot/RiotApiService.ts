@@ -20,3 +20,15 @@ export const getMatchlistByAccount = async (accountId: string) => {
 export const getTimelinesByMatch = async (matchId: string) => {
   return await getRequest(`/match/v4/timelines/by-match/${matchId}`)
 }
+
+export const getSummonerLeagueByAccount = async (accountId: string) => {
+  const response = await getRequest(`/league/v4/entries/by-summoner/${accountId}`) 
+  const soloDuoQueue = response.find((queue: any) => queue.queueType === 'RANKED_SOLO_5x5')
+  return {
+    leaguePoints: soloDuoQueue.leaguePoints,
+    wins: soloDuoQueue.wins,
+    losses: soloDuoQueue.losses,
+    rank: soloDuoQueue.rank,
+    tier: soloDuoQueue.tier 
+  }
+} 
