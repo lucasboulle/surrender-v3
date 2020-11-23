@@ -17,7 +17,7 @@ function App() {
           <Route path="/match/:matchId" component={Match} />
           <Route path="/champion" component={Champion} />
         </Switch>
-        <Redirect to="/match/2118616948"/>
+        <Redirect to="/main"/>
       </Router>
       <GlobalStyle />
     </>
