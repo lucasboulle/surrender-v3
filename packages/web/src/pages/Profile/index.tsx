@@ -28,7 +28,12 @@ import rivenExampleIcon from '../../images/riven-example-icon.jpeg'
 import blueWaves from '../../images/blue-waves.png'
 import { InfoRounded } from '@material-ui/icons'
 import { CartesianGrid, BarChart, XAxis, YAxis, Tooltip, Bar } from 'recharts'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
+import { useSurrenderApi } from '../../custom-hooks/useSurrenderApi'
+import { IRiotSummoner } from '../../interfaces/IRiotSummoner'
+import { timestampToMatchTime } from '../../utils/timestampToMatchTime'
+import { useDdragonDataSet } from '../../custom-hooks/useDdragonDataSet'
+import { buildChampionUrl } from '../../utils/buildChampionUrl'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,64 +57,89 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     radiusChart: {
       width: 50
-    }
-
+    },
   })
 )
 
 const Profile: React.FC = () => {
+
+  //@ts-ignore
+  const { accountId } = useParams()
   const classes = useStyles()
   const history = useHistory()
-  const [matchList, setMatchList] = React.useState<any>([
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' }
-  ])
+
+  const [getSummonerByAccountSuccess, errorSummoner, isLoadingSummoner, getSummonerByAccount] = useSurrenderApi({ path: '/summoner/by-account'})
+  const [getMatchListByAccountSuccess, errorMatchList, isLoadingMatchList, getMatchListByAccount] = useSurrenderApi({ path: '/matchlist/by-account'})
+  const [getDdragonDataSetSuccess, getDdragonDataSetErrorm, isLoadingDdragonDataSet, getDdragonDataSet] = useDdragonDataSet()
+  const [summoner, setSummoner] = React.useState<IRiotSummoner>()
+  const [matchList, setMatchList] = React.useState<any>()
+  const [dataset, setDataset] = React.useState()
+
+  React.useLayoutEffect(() => {
+    //@ts-ignore
+    getSummonerByAccount({ summonerAccount: accountId })
+    //@ts-ignore
+    getMatchListByAccount({ summonerAccount: accountId })
+    //@ts-ignore
+    getDdragonDataSet()
+  }, [])
+
+  React.useEffect(() => {
+    if (getDdragonDataSetSuccess) {
+      //@ts-ignore
+      setDataset(getDdragonDataSetSuccess.data)
+    }
+  }, [getDdragonDataSetSuccess])
+
+  React.useEffect(() => {
+    if (getSummonerByAccountSuccess) {
+      console.log('🚀 ~ file: index.tsx ~ line 96 ~ getSummonerByAccountSuccess', getSummonerByAccountSuccess)
+      //@ts-ignore
+      setSummoner(getSummonerByAccountSuccess)
+    }
+  }, [getSummonerByAccountSuccess])
+
+  React.useEffect(() => {
+    if (getMatchListByAccountSuccess) {
+      console.log('🚀 ~ file: index.tsx ~ line 103 ~ getMatchListByAccountSuccess', getMatchListByAccountSuccess)
+      //@ts-ignore
+      setMatchList(getMatchListByAccountSuccess.matches.slice(0, 6))
+    }
+  }, [getMatchListByAccountSuccess])
 
   const data = [
     {
       name: 'Riven', pv: 70, amt: 2400,
     },
     {
-      name: 'Riven', pv: 69, amt: 2210,
+      name: 'Aatrox', pv: 69, amt: 2210,
     },
     {
-      name: 'Outra Riven foda-se', pv: 42, amt: 2290,
+      name: 'Fiora', pv: 42, amt: 2290,
     },
   ]
 
-  const goToMatchPage = React.useCallback(() => {
-    history.push('/match')
+  const goToMatchPage = React.useCallback((matchId: string) => {
+    history.push(`/match/${matchId}`)
   }, [])
-
-  const fetchMatchList = React.useCallback(
-    async (term?: string) => {
-      const matchList = null
-      setMatchList(matchList)
-    },
-    [matchList]
-  )
 
   return (
     <Container>
       <ImageContainer>
-        <img src={blueWaves} style={{rotate: '180deg', background: '#4c566a'}} />
+        <img src={blueWaves} style={{ rotate: '180deg', background: '#4c566a' }} />
       </ImageContainer>
 
       <ProfileData>
         <ContentContainer>
           <RankEmblemImage src={rankedEmblem} />
-          <ProfileInfo>Master</ProfileInfo>
-          <ProfileInfo>670 W | 700 L</ProfileInfo>
+          <ProfileInfo>{summoner?.tier ? `${summoner?.tier} ${summoner?.rank}` : 'loading'}</ProfileInfo>
+          <ProfileInfo>{summoner ? `${summoner?.wins} W | ${summoner?.losses} L ` : ''}</ProfileInfo>
         </ContentContainer>
 
         <ContentContainer>
           <ProfileImage src={challengerIcon} />
-          <ProfileInfo>Lucas Boulle</ProfileInfo>
-          <ProfileInfo>378</ProfileInfo>
+          <ProfileInfo>{summoner?.name ?? 'loading'}</ProfileInfo>
+          <ProfileInfo>{summoner?.summonerLevel}</ProfileInfo>
         </ContentContainer>
 
         <ContentContainer>
@@ -141,17 +171,17 @@ const Profile: React.FC = () => {
         </ContentContainer>
       </PlayedChampions>
 
-      <MatchList> 
+      <MatchList>
         <GridList cellHeight={180} className={classes.gridList} cols={3}>
-          {matchList ? (
+          {matchList && dataset ? (
             matchList.map((match: any, index: number) => (
               <GridListTile key={index}>
-                <img src={rivenExample} />
+                <img src={buildChampionUrl('splash', String(match.champion), dataset)}/>
                 <GridListTileBar
-                  title={'3/7/9 - 50:12'}
+                  title={`${match.lane} - ${timestampToMatchTime(match.timestamp)}`}
                   subtitle={'Solo/duo'}
                   actionIcon={
-                    <IconButton className={classes.icon} onClick={goToMatchPage}>
+                    <IconButton className={classes.icon} onClick={() => {goToMatchPage(match.gameId)}}>
                       <InfoRounded />
                     </IconButton>
                   }
@@ -159,8 +189,8 @@ const Profile: React.FC = () => {
               </GridListTile>
             ))
           ) : (
-            <LinearProgress className={classes.progressBar} />
-          )}
+              <LinearProgress className={classes.progressBar} />
+            )}
         </GridList>
       </MatchList>
     </Container>

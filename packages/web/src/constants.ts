@@ -1,0 +1,1 @@
+export const ddragonBaseUrl = `http://ddragon.leagueoflegends.com/cdn/img/champion`

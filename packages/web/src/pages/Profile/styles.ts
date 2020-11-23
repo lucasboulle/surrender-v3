@@ -66,8 +66,8 @@ background: #434c5e;
 `
 
 export const ChampionIcon = styled.img`
-width: 100px;
-height: 100px;
+width: 130px;
+height: 130px;
 border-radius: 150px;
 align-self: center;
 `

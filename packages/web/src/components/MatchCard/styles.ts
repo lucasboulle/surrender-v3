@@ -16,12 +16,14 @@ export const ItemPurchased = styled.img`
   border-image-width: 5px;
   width: 35px;
   height: 35px;
+  margin-left: 5px;
+  margin-right: 5px;
 `
 
 export const RowContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 70%;
   height: 50%;

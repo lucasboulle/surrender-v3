@@ -13,6 +13,12 @@ import {
 import blueWaves from '../../images/blue-waves.png'
 import MatchCard from '../../components/MatchCard'
 import { Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from 'recharts'
+import { useSurrenderApi } from '../../custom-hooks/useSurrenderApi'
+import { useParams } from 'react-router-dom'
+import { useDdragonDataSet } from '../../custom-hooks/useDdragonDataSet'
+import { buildChampionUrl } from '../../utils/buildChampionUrl'
+import { useDdragonDataSetForItem } from '../../custom-hooks/useDdragonDataSetForItem'
+import { getChampionNameById } from '../../utils/getChampionNameById'
 
 const teamColors = {
   enemy: '#bf616a',
@@ -46,15 +52,48 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const Match: React.FC = () => {
-  const classes = useStyles()
-  const [matchList, setMatchList] = React.useState<any>([
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' }
-  ])
+  //@ts-ignore
+  const { matchId } = useParams()
+  const [getDetailedMatchSuccess, errorSummoner, isLoadingSummoner, getDetailedMatch] = useSurrenderApi({ path: '/match/by-id'})
+  const [getDdragonDataSetSuccess, getDdragonDataSetErrorm, isLoadingDdragonDataSet, getDdragonDataSet] = useDdragonDataSet()
+  const [dataset, setDataset] = React.useState()
+  const [itemdataset, setItemDataset] = React.useState()
+
+  const [allyParticipants, setAllyParticipants] = React.useState([])
+  const [enemyParticipants, setEnemyParticipants] = React.useState([])
+  React.useEffect(() => {
+    //@ts-ignore
+    getDetailedMatch({ matchId })
+
+        //@ts-ignore
+        getDdragonDataSet()
+  }, [])
+
+  React.useEffect(() => {
+    if (getDetailedMatchSuccess) {
+      console.log('🚀 ~ file: index.tsx ~ line 62 ~ getDetailedMatchSuccess', getDetailedMatchSuccess)
+      // //@ts-ignore
+      // setDataset(getDdragonDataSetSuccess.data)
+      //@ts-ignore
+      setAllyParticipants(getDetailedMatchSuccess.participants.filter(p => p.teamId === 200))
+      //@ts-ignore
+      setEnemyParticipants(getDetailedMatchSuccess.participants.filter(p => p.teamId === 100))
+    }
+  }, [getDetailedMatchSuccess])
+
+  React.useEffect(() => {
+    if (getDdragonDataSetSuccess) {
+      //@ts-ignore
+      setDataset(getDdragonDataSetSuccess.data)
+    }
+  }, [getDdragonDataSetSuccess])
+
+  React.useEffect(() => {
+    if (getDdragonDataSetSuccess) {
+      //@ts-ignore
+      setDataset(getDdragonDataSetSuccess.data)
+    }
+  }, [getDdragonDataSetSuccess])
 
   const data = [
     {
@@ -77,14 +116,6 @@ const Match: React.FC = () => {
     },
   ]
 
-  const fetchMatchList = React.useCallback(
-    async (term?: string) => {
-      const matchList = null
-      setMatchList(matchList)
-    },
-    [matchList]
-  )
-
   return (
     <Container>
       <ImageContainer>
@@ -93,28 +124,40 @@ const Match: React.FC = () => {
 
       <CardsRowContainer>
         <CardsContainer>
-        <MatchCard team={'ally'} />
-        <MatchCard team={'ally'} />
-        <MatchCard team={'ally'} />
-        <MatchCard team={'ally'} />
-        <MatchCard team={'ally'} />
+          {allyParticipants.length && dataset && (
+            allyParticipants?.map((participant: any, index: number) => {
+              return <MatchCard 
+              key={index} 
+              team={'ally'} 
+              participant={participant} 
+              championUrl={buildChampionUrl('champion', String(participant.championId), dataset)} 
+              championName={getChampionNameById(String(participant.championId), dataset)}
+              />
+            })
+          )}
         </CardsContainer>
         <CardsContainer>
           <RadarChart outerRadius={150} width={500} height={500} data={data}>
             <PolarGrid stroke={'#88c0d0'}/>
             <PolarAngleAxis dataKey="subject" />
             <PolarRadiusAxis angle={30} domain={[0, 150]} />
-            <Radar name="Lily" dataKey="B" stroke={teamColors.enemy} fill={teamColors.enemy} fillOpacity={0.6} />
-            <Radar name="Mike" dataKey="A" stroke={teamColors.ally} fill={teamColors.ally} fillOpacity={0.6} />
+            <Radar name="enemy" dataKey="B" stroke={teamColors.enemy} fill={teamColors.enemy} fillOpacity={0.6} />
+            <Radar name="ally" dataKey="A" stroke={teamColors.ally} fill={teamColors.ally} fillOpacity={0.6} />
             <Legend />
           </RadarChart>
         </CardsContainer>
         <CardsContainer>
-        <MatchCard team={'enemy'} />
-        <MatchCard team={'enemy'} />
-        <MatchCard team={'enemy'} />
-        <MatchCard team={'enemy'} />
-        <MatchCard team={'enemy'} />
+          {enemyParticipants.length && dataset && (
+            enemyParticipants?.map((participant: any, index: number) => {
+              return <MatchCard
+                key={index}
+                team={'enemy'}
+                participant={participant}
+                championUrl={buildChampionUrl('champion', String(participant.championId), dataset)}
+                championName={getChampionNameById(String(participant.championId), dataset)}
+              />
+            })
+          )}
         </CardsContainer>
       </CardsRowContainer>
     </Container>

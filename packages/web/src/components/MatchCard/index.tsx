@@ -12,10 +12,13 @@ import {
   LeftPlayerMatchCardRowContainer
 } from './styles'
 import blackCleaverExample from '../../images/black-cleaver.jpg'
-import rivenExampleIcon from '../../images/riven-example-icon.jpeg'
+import { buildItemUrl } from '../../utils/buildItemUrl'
 
 interface Props {
   team: 'enemy' | 'ally'
+  participant: any
+  championUrl: string
+  championName: string
 }
 
 const teamColors = {
@@ -25,30 +28,29 @@ const teamColors = {
 
 const MatchCard = (props: Props) => {
 
-
   return (
         <PlayerMatchCardContainer style={{background: teamColors[props.team]}}>
           <RightPlayerMatchCardRowContainer>
 
             <RightPlayerMatchCardContainer>
-            <ChampionIcon src={rivenExampleIcon} />
+            <ChampionIcon src={props.championUrl} />
             <InfoTitle style={{ color: '#d8dee9' }}>
-                Riven
+                {props.championName}
             </InfoTitle>
             </RightPlayerMatchCardContainer>
 
             <LeftPlayerMatchCardContainer>
               <InfoText style={{ color: '#d8dee9', marginTop: 10, fontWeight: 'bold' }}>
-                2/5/9
+                {`${props.participant.stats.kills}/${props.participant.stats.deaths}/${props.participant.stats.assists}`}
             </InfoText>
               <InfoText style={{ color: '#ebcb8b' }}>
-                2580 gold
+                {props.participant.stats.goldEarned} gold
             </InfoText>
               <InfoText style={{ color: '#a3be8c' }}>
-                250 CS
+                {props.participant.stats.totalMinionsKilled} CS
             </InfoText>
               <InfoText style={{ color: '#8fbcbb' }}>
-                Level 11
+                Level {props.participant.stats.champLevel}
             </InfoText>
               <InfoText style={{ color: '#b48ead' }}>
                 p/ kill 25%
@@ -59,15 +61,15 @@ const MatchCard = (props: Props) => {
 
           <LeftPlayerMatchCardRowContainer>
             <RowContainer>
-              <ItemPurchased src={blackCleaverExample} />
-              <ItemPurchased src={blackCleaverExample} />
-              <ItemPurchased src={blackCleaverExample} />
+              <ItemPurchased src={buildItemUrl(props.participant.stats.item0)} />
+              <ItemPurchased src={buildItemUrl(props.participant.stats.item1)} />
+              <ItemPurchased src={buildItemUrl(props.participant.stats.item2)} />
             </RowContainer>
 
             <RowContainer>
-              <ItemPurchased src={blackCleaverExample} />
-              <ItemPurchased src={blackCleaverExample} />
-              <ItemPurchased src={blackCleaverExample} />
+              <ItemPurchased src={buildItemUrl(props.participant.stats.item4)} />
+              <ItemPurchased src={buildItemUrl(props.participant.stats.item5)} />
+              <ItemPurchased src={buildItemUrl(props.participant.stats.item6)} />
             </RowContainer>
           </LeftPlayerMatchCardRowContainer>
 
