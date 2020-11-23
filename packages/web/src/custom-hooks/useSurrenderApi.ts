@@ -14,7 +14,7 @@ export const useSurrenderApi = (apiCall: IApiCall) => {
     setError(undefined)
     setSuccess(undefined)
 
-    const url = new URL('https://SurrenderProduction-env.eba-6qrriuvf.sa-east-1.elasticbeanstalk.com' + apiCall.path)
+    const url = new URL('http://SurrenderProduction-env.eba-6qrriuvf.sa-east-1.elasticbeanstalk.com' + apiCall.path)
     if (params) {
       Object.keys(params).forEach(key => {url.searchParams.append(key, params[key])})
     }
