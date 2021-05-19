@@ -22,7 +22,7 @@ import {
   Theme,
 } from '@material-ui/core'
 import challengerIcon from '../../images/challenger-icon.jpeg'
-import rankedEmblem from '../../images/ranked-emblems/Emblem_Master.png'
+import rankedEmblem from '../../images/ranked-emblems/Emblem_Platinum.png'
 import rivenExample from '../../images/riven-example.jpeg'
 import rivenExampleIcon from '../../images/riven-example-icon.jpeg'
 import blueWaves from '../../images/blue-waves.png'
@@ -84,16 +84,11 @@ const Profile: React.FC = () => {
     getDdragonDataSet()
   }, [])
 
-  React.useEffect(() => {
-    if (getDdragonDataSetSuccess) {
-      //@ts-ignore
-      setDataset(getDdragonDataSetSuccess.data)
-    }
-  }, [getDdragonDataSetSuccess])
+
+  
 
   React.useEffect(() => {
     if (getSummonerByAccountSuccess) {
-      console.log('🚀 ~ file: index.tsx ~ line 96 ~ getSummonerByAccountSuccess', getSummonerByAccountSuccess)
       //@ts-ignore
       setSummoner(getSummonerByAccountSuccess)
     }
@@ -101,11 +96,21 @@ const Profile: React.FC = () => {
 
   React.useEffect(() => {
     if (getMatchListByAccountSuccess) {
-      console.log('🚀 ~ file: index.tsx ~ line 103 ~ getMatchListByAccountSuccess', getMatchListByAccountSuccess)
       //@ts-ignore
       setMatchList(getMatchListByAccountSuccess.matches.slice(0, 6))
     }
   }, [getMatchListByAccountSuccess])
+
+  React.useEffect(() => {
+    if (getDdragonDataSetSuccess) {
+      //@ts-ignore
+      setDataset(getDdragonDataSetSuccess.data)
+    }
+  }, [getDdragonDataSetSuccess])
+
+  const goToChampionPage = () => {
+    history.push(`/champion/92`)
+  }
 
   const data = [
     {
@@ -157,17 +162,17 @@ const Profile: React.FC = () => {
       <PlayedChampions>
         <ContentContainer>
           <ChampionIcon src={rivenExampleIcon} />
-          <ProfileInfo>Master</ProfileInfo>
+          <ProfileInfo>Riven</ProfileInfo>
         </ContentContainer>
 
         <ContentContainer>
           <ChampionIcon src={rivenExampleIcon} />
-          <ProfileInfo>Master</ProfileInfo>
+          <ProfileInfo>Riven</ProfileInfo>
         </ContentContainer>
 
-        <ContentContainer>
+        <ContentContainer onClick={goToChampionPage}>
           <ChampionIcon src={rivenExampleIcon} />
-          <ProfileInfo>Master</ProfileInfo>
+          <ProfileInfo>Riven</ProfileInfo>
         </ContentContainer>
       </PlayedChampions>
 

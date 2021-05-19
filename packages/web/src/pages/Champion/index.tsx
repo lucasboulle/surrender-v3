@@ -25,40 +25,51 @@ import { InfoText, ItemPurchased } from '../../components/MatchCard/styles'
 import SimpleChart from '../../components/SimpleChart'
 import RuneTree from '../../components/RuneTree'
 import blackCleaverExample from '../../images/black-cleaver.jpg'
+import { getSummonerSpellImage } from '../../utils/getSummonerSpellImage'
+import { useDdragonDataSet } from '../../custom-hooks/useDdragonDataSet'
+import { useParams } from 'react-router-dom'
+import { getChampionByKey } from '../../utils/getChampioByKey'
 
 const SkillArrowPriority = () => <ArrowRight fontSize={'large'} style={{ color: '#88c0d0', marginTop: '6px' }} />
 
 const Champion: React.FC = () => {
-  const [matchList, setMatchList] = React.useState<any>([
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' },
-    { dale: 'dale' }
-  ])
+  //@ts-ignore
+  const {championId} = useParams()
+  const [getDdragonDataSetSuccess, getDdragonDataSetErrorm, isLoadingDdragonDataSet, getDdragonDataSet] = useDdragonDataSet()
+  const [champion, setChampion] = React.useState()
+  React.useEffect(() => {
+    //@ts-ignore
+    getDdragonDataSet()
+  }, [])
+  
+  React.useEffect(() => {
+    if(getDdragonDataSetSuccess) {
+      //@ts-ignore
+      setChampion(getChampionByKey(String(championId), getDdragonDataSetSuccess.data))
+      } 
+  }, [getDdragonDataSetSuccess])
 
   const data = [
     {
-      name: 'Page A', uv: 4000, pv: 2400, amt: 2400,
+      name: '10.17', uv: 45, amt: 2400,
     },
     {
-      name: 'Page B', uv: 3000, pv: 1398, amt: 2210,
+      name: '10.18', uv: 46, amt: 2210,
     },
     {
-      name: 'Page C', uv: 2000, pv: 9800, amt: 2290,
+      name: '10.19', uv: 48, amt: 2290,
     },
     {
-      name: 'Page D', uv: 2780, pv: 3908, amt: 2000,
+      name: '10.20', uv: 48, amt: 2000,
     },
     {
-      name: 'Page E', uv: 1890, pv: 4800, amt: 2181,
+      name: '10.21', uv:49, amt: 2181,
     },
     {
-      name: 'Page F', uv: 2390, pv: 3800, amt: 2500,
+      name: '10.22', uv: 49, amt: 2500,
     },
     {
-      name: 'Page G', uv: 3490, pv: 4300, amt: 2100,
+      name: '10.23', uv: 47, amt: 2100,
     },
   ]
 
@@ -75,8 +86,8 @@ const Champion: React.FC = () => {
         </TitleChampionContainer>
         <ChampionSkillInfo>
           <SpellContainer>
-            <SpellImage src={rivenQExample} />
-            <SpellImage src={rivenQExample} />
+            <SpellImage src={getSummonerSpellImage('SummonerFlash')} />
+          <SpellImage src={getSummonerSpellImage('SummonerTeleport')} />
           </SpellContainer>
           <RowContainer>
             <SkillImage src={rivenQExample} />
@@ -85,7 +96,7 @@ const Champion: React.FC = () => {
             <SkillImage src={rivenQExample} />
             <SkillImage src={rivenQExample} />
           </RowContainer>
-          <RowContainer>
+          <RowContainer> 
             <SkillImage src={rivenQExample} />
             <SkillArrowPriority />
             <SkillImage src={rivenQExample} />

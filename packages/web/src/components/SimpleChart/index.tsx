@@ -15,7 +15,7 @@ const SimpleChart = (props: Props) => {
 
   return (
         <Container >
-        <ChartTitle>Um titulo</ChartTitle>
+        <ChartTitle>Porcetagem de vitoria por patch</ChartTitle>
         <LineChart
           width={500}
           height={300}

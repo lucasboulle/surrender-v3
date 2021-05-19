@@ -15,7 +15,7 @@ function App() {
           <Route path="/main" exact component={MainPage} />
           <Route path="/profile/:accountId" component={Profile} />
           <Route path="/match/:matchId" component={Match} />
-          <Route path="/champion" component={Champion} />
+          <Route path="/champion/:championId" component={Champion} />
         </Switch>
         <Redirect to="/main"/>
       </Router>
