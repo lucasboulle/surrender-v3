@@ -9,12 +9,37 @@ import {
   getTimelinesByMatch 
 } from './api/riot/RiotApiService'
 import { authenticate, decodeUserToken, generateToken } from './Services/AuthService'
+import brain from 'brain.js' 
+import { updateNeuralData } from './utils/updateNeuralData'
 
 const routes = express.Router()
 const unprotectedRoutes = [
   '/auth/login',
   '/echo'
 ]
+
+const config = {
+  binaryThresh: 0.5,
+  hiddenLayers: [3], // array of ints for the sizes of the hidden layers in the network
+  leakyReluAlpha: 0.01, // supported for activation type 'leaky-relu'
+}
+
+const net = new brain.NeuralNetwork(config)
+
+const train = (train?: {
+  input: number[]
+  output: number[]
+}) => {
+  if (train) {
+    net.train([train])
+  } else {
+    const contentData = require('../data-assets/match-by-id-response-example.json')
+
+    net.train(contentData);
+  }
+}
+
+// train();
 
 routes.use((request, response, next) => {
   
@@ -39,7 +64,21 @@ routes.use((request, response, next) => {
 })
 
 routes.get('/echo', (request, response) => {  
-  return response.json({ message: 'Server response - OK'  })
+
+  // train({ input: [0, 0], output: [0] })
+  // const output = net.run([1, 0]); // [0.987]
+
+  // updateNeuralData({
+  //   teste: 'sucesso 2!!!'
+  // })
+
+  // const test = require('./train-data.json')
+
+  // const test2 = test.map((v: any) => v.teste)
+
+  const output = net.run([1, 0]); // [0.987]
+
+  return response.json({ message: output })
 })
 
 routes.post('/auth/login', async (request, response) => {  
@@ -54,21 +93,19 @@ routes.post('/auth/login', async (request, response) => {
 
 routes.get('/summoner/by-name', async (request, response) => {
   const { query } = request
-  return response.json({ ...(await getSummonerByName(String(query.summonerName))) })
-})
-
-routes.get('/summoner/by-account', async (request, response) => {
-  const { query } = request
-  const summoner = await getSummonerByAccount(String(query.summonerAccount))
-  return response.json({ 
-    ...summoner,
-    ...(await getSummonerLeagueByAccount(String(summoner.id)))
+  train({ input: [0, 1], output: [1] })
+  for (var i = 0; i < 9000; i++) {
+    train({ input: [0, 1], output: [1] })
+  }
+  const output = net.run([absummoner.id)))
   })
 })
 
 routes.get('/match/by-id', async (request, response) => {
   const { query } = request
+  // const output = net.run([1, 0]); // [0.987]
   return response.json({ ...(await getMatchById(String(query.matchId))) })
+
 })
 
 routes.get('/matchlist/by-account', async (request, response) => {
@@ -78,6 +115,10 @@ routes.get('/matchlist/by-account', async (request, response) => {
 
 routes.get('/timelines/by-match', async (request, response) => {
   const { query } = request
+  const apiReponse  = await getTimelinesByMatch(String(query.matchId))
+
+  updateNeuralData(apiReponse)
+
   return response.json({ message: await getTimelinesByMatch(String(query.matchId)) })
 })
 

@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "brain.js": "^2.0.0-beta.2",
     "connect-memcached": "*",
     "cors": "^2.8.5",
     "express": "^4.17.1",

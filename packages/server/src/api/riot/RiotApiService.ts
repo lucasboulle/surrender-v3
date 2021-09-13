@@ -10,7 +10,7 @@ export const getSummonerByAccount = async (accountId: string) => {
 }
 
 export const getMatchById = async (matchId: string) => {
-  return await getRequest(`/match/v4/matches/${matchId}`)
+  return await getRequest(`/match/v5/matches/${matchId}`, [], 5)
 } 
 
 export const getMatchlistByAccount = async (accountId: string) => {
@@ -18,7 +18,7 @@ export const getMatchlistByAccount = async (accountId: string) => {
 }
 
 export const getTimelinesByMatch = async (matchId: string) => {
-  return await getRequest(`/match/v4/timelines/by-match/${matchId}`)
+  return await getRequest(`/match/v5/matches/${matchId}/timeline`, [], 5)
 }
 
 export const getSummonerLeagueByAccount = async (accountId: string) => {
