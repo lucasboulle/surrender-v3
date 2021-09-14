@@ -1,7 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
+import {Colors} from '../utils/Colors';
 
 export default createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 
   * {
     margin: 0;
@@ -11,10 +12,10 @@ export default createGlobalStyle`
   }
 
   body {
-    font: 14px 'Roboto', sans-serif;
-    background: #434c5e;
+    font: 14px 'Fira Code', sans-serif;
+    background: ${Colors.background};
     color: #333;
-    -webkit-font-smoothing: antialiased !important
+    -webkit-font-smoothing: antialiased !important;
   }
 
   html, body, #root {

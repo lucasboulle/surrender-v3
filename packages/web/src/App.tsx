@@ -6,10 +6,16 @@ import Profile from './pages/Profile';
 import MainPage from './pages/MainPage';
 import Match from './pages/Match';
 import Champion from './pages/Champion';
+import {Helmet} from 'react-helmet';
+import surrenderIcon from './images/surrender-logo.png'
 
 function App() {
   return (
     <>
+      <Helmet> 
+        <meta charSet="utf-8" />
+        <title>{'surrender.gg'}</title>
+      </Helmet>
       <Router>
         <Switch>
           <Route path="/main" exact component={MainPage} />

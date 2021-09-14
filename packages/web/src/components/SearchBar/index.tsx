@@ -1,8 +1,10 @@
+import {Input} from '@dracula/dracula-ui';
+import '@dracula/dracula-ui/styles/dracula-ui.css';
+import {createStyles, IconButton, makeStyles} from '@material-ui/core';
 import React from 'react';
-import { Container } from './styles';
-import { MdSearch } from 'react-icons/md';
-import TextField from '@material-ui/core/TextField';
-import { IconButton, makeStyles, createStyles } from '@material-ui/core';
+import {MdSearch} from 'react-icons/md';
+import {Colors} from '../../utils/Colors';
+import {Container} from './styles';
 
 interface Props {
   onSearch: (text: string) => void
@@ -13,7 +15,6 @@ const useStyles = makeStyles(() =>
     iconButton: {
       width: 50,
       height: 50,
-      marginTop: 16,
       marginRight: 5,
       
     },
@@ -35,25 +36,20 @@ const SearchBar = (props: Props) => {
 
   return (
     <Container>
-      <TextField
+      <Input
         id="standard-basic"
-        label="Pesquisar"
-        onChange={text => setText(text.target.value)}
-        fullWidth={true}
-        style={searchBarStyle}
+        placeholder="Pesquisar"
+        onChange={(text: any) => setText(text.target.value)}
+        color='pink'
       />
       <IconButton
         className={classes.iconButton}
         onClick={onSubmit}
       >
-        <MdSearch size={24} color={'#202020'} />
+        <MdSearch size={24} color={Colors.pink} />
       </IconButton>
     </Container>
   )
-}
-
-const searchBarStyle = {
-  width: 350
 }
 
 export default SearchBar;

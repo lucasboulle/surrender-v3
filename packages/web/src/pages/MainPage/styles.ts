@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {Colors} from '../../utils/Colors';
 
 export const RowContainer = styled.div`
   color: #fffff; 
@@ -8,10 +9,10 @@ export const RowContainer = styled.div`
 `;
 
 export const Container = styled.div`
-  color: #2e3440;
-  background: #d8dee9;
+  color: ${Colors.pink};
+  background: ${Colors.background};
   width: 100%;
-  height: 50%;
+  height: 59%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -21,4 +22,11 @@ export const Container = styled.div`
 
 export const MainTitle = styled.h1`
   font-size: 60px;
+`
+
+export const Footer = styled.div`
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 `
