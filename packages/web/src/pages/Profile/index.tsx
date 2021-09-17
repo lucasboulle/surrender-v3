@@ -3,13 +3,10 @@ import {
   Container,
   ProfileInfo,
   ProfileData,
-  ProfileImage,
   RankEmblemImage,
   ContentContainer,
-  PlayedChampions,
-  ChampionIcon,
   MatchList,
-  ImageContainer
+  RowContainer
 } from './styles'
 import {
   createStyles,
@@ -23,9 +20,7 @@ import {
 } from '@material-ui/core'
 import challengerIcon from '../../images/challenger-icon.jpeg'
 import rankedEmblem from '../../images/ranked-emblems/Emblem_Platinum.png'
-import rivenExample from '../../images/riven-example.jpeg'
 import rivenExampleIcon from '../../images/riven-example-icon.jpeg'
-import blueWaves from '../../images/blue-waves.png'
 import { InfoRounded } from '@material-ui/icons'
 import { CartesianGrid, BarChart, XAxis, YAxis, Tooltip, Bar } from 'recharts'
 import { useHistory, useParams } from 'react-router-dom'
@@ -34,6 +29,9 @@ import { IRiotSummoner } from '../../interfaces/IRiotSummoner'
 import { timestampToMatchTime } from '../../utils/timestampToMatchTime'
 import { useDdragonDataSet } from '../../custom-hooks/useDdragonDataSet'
 import { buildChampionUrl } from '../../utils/buildChampionUrl'
+import { Avatar, Badge, Box, Card, Divider, Tabs, Text } from '@dracula/dracula-ui'
+import Header from '../../components/Header'
+import { Colors } from '../../utils/Colors'
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,6 +56,30 @@ const useStyles = makeStyles((theme: Theme) =>
     radiusChart: {
       width: 50
     },
+    rankedBox: {
+      alignItems: 'center',
+      flexDIrection: 'column',
+      justifyContent: 'center'
+    },
+    championsBox: {
+      height: '40%',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+    },
+    championText: {
+      fontSize: '15px',
+      marginTop: '10px'
+    },
+    championTextRating: {
+      fontSize: '25px',
+      marginBottom: '10px',
+      fontWeight: 'bold'
+    },
+    championAvatar: {
+      width: 130,
+      height: 130,
+    }
   })
 )
 
@@ -68,10 +90,12 @@ const Profile: React.FC = () => {
   const classes = useStyles()
   const history = useHistory()
 
-  const [getSummonerByAccountSuccess, errorSummoner, isLoadingSummoner, getSummonerByAccount] = useSurrenderApi({ path: '/summoner/by-account'})
-  const [getMatchListByAccountSuccess, errorMatchList, isLoadingMatchList, getMatchListByAccount] = useSurrenderApi({ path: '/matchlist/by-account'})
+  const [getSummonerByAccountSuccess, errorSummoner, isLoadingSummoner, getSummonerByAccount] = useSurrenderApi({ path: '/summoner/by-account' })
+  const [getSummonerEntriesBySummonerIdSucess, errorSummonerEntries, isLoadingSummonerEntries, getSummonerEntriesBySummonerId] = useSurrenderApi({ path: '/summoner/entries/by-summoner' })
+  const [getMatchListByAccountSuccess, errorMatchList, isLoadingMatchList, getMatchListByAccount] = useSurrenderApi({ path: '/matchlist/by-account' })
   const [getDdragonDataSetSuccess, getDdragonDataSetErrorm, isLoadingDdragonDataSet, getDdragonDataSet] = useDdragonDataSet()
   const [summoner, setSummoner] = React.useState<IRiotSummoner>()
+  const [summonerEntries, setSummonerEntries] = React.useState<any>()
   const [matchList, setMatchList] = React.useState<any>()
   const [dataset, setDataset] = React.useState()
 
@@ -85,12 +109,15 @@ const Profile: React.FC = () => {
   }, [])
 
 
-  
+
 
   React.useEffect(() => {
     if (getSummonerByAccountSuccess) {
       //@ts-ignore
       setSummoner(getSummonerByAccountSuccess)
+
+      //@ts-ignore
+      getSummonerEntriesBySummonerId({ summonerId: getSummonerByAccountSuccess?.id })
     }
   }, [getSummonerByAccountSuccess])
 
@@ -107,6 +134,13 @@ const Profile: React.FC = () => {
       setDataset(getDdragonDataSetSuccess.data)
     }
   }, [getDdragonDataSetSuccess])
+
+  React.useEffect(() => {
+    if (getSummonerEntriesBySummonerIdSucess) {
+      //@ts-ignore
+      setSummonerEntries(getSummonerEntriesBySummonerIdSucess)
+    }
+  }, [getSummonerEntriesBySummonerIdSucess])
 
   const goToChampionPage = () => {
     history.push(`/champion/92`)
@@ -130,63 +164,145 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-      <ImageContainer>
-        <img src={blueWaves} style={{ rotate: '180deg', background: '#4c566a' }} />
-      </ImageContainer>
-
+      <Header />
       <ProfileData>
         <ContentContainer>
+          <Tabs style={{ marginBottom: '2%' }} color="pink">
+            <li className="drac-tab drac-tab-active">
+              <a className="drac-tab-link drac-text" href="#">
+                Solo/duo
+              </a>
+            </li>
+            <li className="drac-tab">
+              <a className="drac-tab-link drac-text" href="#">
+                Flex
+              </a>
+            </li>
+          </Tabs>
           <RankEmblemImage src={rankedEmblem} />
-          <ProfileInfo>{summoner?.tier ? `${summoner?.tier} ${summoner?.rank}` : 'loading'}</ProfileInfo>
-          <ProfileInfo>{summoner ? `${summoner?.wins} W | ${summoner?.losses} L ` : ''}</ProfileInfo>
+          <ProfileInfo>{summonerEntries?.tier ? `${summonerEntries?.tier} ${summonerEntries?.rank}` : 'loading'}</ProfileInfo>
+          <ProfileInfo>{summonerEntries ? `${summonerEntries?.wins} W | ${summonerEntries?.losses} L ` : ''}</ProfileInfo>
         </ContentContainer>
 
         <ContentContainer>
-          <ProfileImage src={challengerIcon} />
-          <ProfileInfo>{summoner?.name ?? 'loading'}</ProfileInfo>
-          <ProfileInfo>{summoner?.summonerLevel}</ProfileInfo>
+          {/* <Box
+            color="black"
+            height="xs"
+            width="xxs"
+            rounded="lg"
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              display: 'flex'
+            }}
+          > */}
+            <Avatar
+              title='Profile icon'
+              src={challengerIcon}
+              style={{ width: 100, height: 100 }}
+              color="pink"
+              borderVariant="large"
+            />
+            <ProfileInfo>{summoner?.name ?? 'loading'}</ProfileInfo>
+            <ProfileInfo>{summoner?.summonerLevel}</ProfileInfo>
+            <RowContainer>
+              <Badge color="purple" variant="subtle">S7 Gold</Badge>
+              <Badge color="pink" variant="subtle" style={{marginLeft: 50}}>S8 Gold</Badge>
+              <Badge color="cyan" variant="subtle" style={{marginLeft: 50}}>S9 Gold</Badge>
+            </RowContainer>
+          {/* </Box> */}
         </ContentContainer>
 
         <ContentContainer>
-          <BarChart width={400} height={200} data={data}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" stroke='#81a1c1' />
-            <YAxis stroke='#81a1c1' />
-            <Tooltip />
-            <Bar dataKey="pv" fill='#81a1c1' />
-          </BarChart>
+          <Box
+            color="pinkPurple"
+            rounded="lg"
+            height="xxs"
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              display: 'flex'
+            }}
+          >
+            <BarChart width={400} height={200} data={data}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" stroke={Colors.black} />
+              <YAxis stroke={Colors.black} />
+              <Tooltip />
+              <Bar dataKey="pv" fill={Colors.black} />
+            </BarChart>
+          </Box>
         </ContentContainer>
       </ProfileData>
 
-      <PlayedChampions>
+      <Divider color="purple" />
+
+      {/* Top played champions */}
+      <Box color="black" className={classes.championsBox}>
         <ContentContainer>
-          <ChampionIcon src={rivenExampleIcon} />
-          <ProfileInfo>Riven</ProfileInfo>
+          <Text className={classes.championTextRating} color="purple">92/100</Text>
+          <Avatar
+            src={rivenExampleIcon}
+            title="champion 1"
+            borderVariant="large"
+            color="purple"
+            style={{ width: 130, height: 130 }}
+          />
+          <Text className={classes.championText} color="purple">Riven</Text>
         </ContentContainer>
 
         <ContentContainer>
-          <ChampionIcon src={rivenExampleIcon} />
-          <ProfileInfo>Riven</ProfileInfo>
+          <Text className={classes.championTextRating} color="pink">57/100</Text>
+          <Avatar
+            src={rivenExampleIcon}
+            title="champion 2"
+            borderVariant="large"
+            color="pink"
+            style={{ width: 130, height: 130 }}
+          />
+          <Text className={classes.championText} color="pink">Riven</Text>
         </ContentContainer>
 
         <ContentContainer onClick={goToChampionPage}>
-          <ChampionIcon src={rivenExampleIcon} />
-          <ProfileInfo>Riven</ProfileInfo>
+          <Text className={classes.championTextRating} color="cyan">35/100</Text>
+          <Avatar
+            src={rivenExampleIcon}
+            title="champion 3"
+            borderVariant="large"
+            color="cyan"
+            style={{ width: 130, height: 130 }}
+          />
+          <Text className={classes.championText} color="cyan">Riven</Text>
         </ContentContainer>
-      </PlayedChampions>
+
+
+        <ContentContainer onClick={goToChampionPage}>
+          <Text className={classes.championTextRating} color="green">31/100</Text>
+          <Avatar
+            src={rivenExampleIcon}
+            title="champion 4"
+            borderVariant="large"
+            color="green"
+            style={{ width: 130, height: 130 }}
+          />
+          <Text className={classes.championText} color="green">Riven</Text>
+        </ContentContainer>
+      </Box>
 
       <MatchList>
         <GridList cellHeight={180} className={classes.gridList} cols={3}>
           {matchList && dataset ? (
             matchList.map((match: any, index: number) => (
               <GridListTile key={index}>
-                <img src={buildChampionUrl('splash', String(match.champion), dataset)}/>
+                <img src={buildChampionUrl('splash', String(match.champion), dataset)} />
                 <GridListTileBar
                   title={`${match.lane} - ${timestampToMatchTime(match.timestamp)}`}
                   subtitle={'Solo/duo'}
                   actionIcon={
-                    <IconButton className={classes.icon} onClick={() => {goToMatchPage(match.gameId)}}>
+                    <IconButton className={classes.icon} onClick={() => { goToMatchPage(match.gameId) }}>
                       <InfoRounded />
                     </IconButton>
                   }
@@ -194,8 +310,8 @@ const Profile: React.FC = () => {
               </GridListTile>
             ))
           ) : (
-              <LinearProgress className={classes.progressBar} />
-            )}
+            <LinearProgress className={classes.progressBar} />
+          )}
         </GridList>
       </MatchList>
     </Container>

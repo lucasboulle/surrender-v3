@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { Container, Footer, MainTitle, RowContainer } from './styles';
 import SearchBar from '../../components/SearchBar';
 // import waves from '../../images/edge-waves.png';
@@ -27,6 +27,7 @@ const MainPage: React.FC = () => {
   const history = useHistory()
   const [searchName, setSearchName] = React.useState()
   const [success, error, isLoading, getSummonerByName] = useSurrenderApi({ path: '/summoner/by-name' })
+  const ref = useRef<any>()
 
   const goToProfilePage = React.useCallback(async (summonerName: string) => {
     // @ts-ignore
@@ -34,21 +35,26 @@ const MainPage: React.FC = () => {
   }, [])
 
   React.useEffect(() => {
+    console.log('🚀 ~ file: index.tsx ~ line 39 ~ React.useEffect ~ success', success)
     if (success) {
       // @ts-ignore
       history.push(`/profile/${success.accountId}`)
     }
   }, [success])
+
+  React.useEffect(() => {
+    console.log("width", ref?.current?.offsetWidth);
+  }, []);
   return (
     <>
       <Container>
         <Container>
           <RowContainer>
-            <MainTitle> Surrender.gg </MainTitle>
+            <MainTitle ref={ref}> Surrender.gg </MainTitle>
           </RowContainer>
 
-          <RowContainer>
-            <SearchBar onSearch={goToProfilePage}></SearchBar>
+          <RowContainer style={{ alignSelf: 'center'}}>
+            <SearchBar onSearch={goToProfilePage} style={{width: 460}} ></SearchBar>
           </RowContainer>
 
           <RowContainer style={{ paddingTop: '8%' }}>

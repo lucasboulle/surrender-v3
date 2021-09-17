@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { Colors } from '../../utils/Colors';
 
 export const Container = styled.div`
 color: #2e3440;
-background: #d8dee9;
+background: ${Colors.background};
 width: 100%;
 height: 100%;
 display: flex;
@@ -12,15 +13,18 @@ justidy-content: flex-start;
 padding: 0 0 0 0;
 `;
 
+export const RowContainer = styled.div`
+  flex-direction: row;
+  margin-top 10%;
+  align-items: center;
+`
+
 export const ProfileData = styled.div`
 height: 50%;
-background: #4c566a;
+background: ${Colors.background};
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-border-bottom-width: 1px;
-border-bottom-color: #5e81ac;
-border-bottom-style: solid;
 
 `
 
@@ -39,6 +43,7 @@ height: 130px;
 export const ProfileInfo = styled.p`
 font-size: 15px;
 margin-top: 10px;
+color: ${Colors.pink}
 `
 
 export const ContentContainer = styled.div`
@@ -55,9 +60,6 @@ background: #434c5e;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-border-bottom-width: 5px;
-border-bottom-color: #5e81ac;
-border-bottom-style: solid;
 `
 
 export const MatchList = styled.div`

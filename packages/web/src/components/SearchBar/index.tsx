@@ -8,6 +8,9 @@ import {Container} from './styles';
 
 interface Props {
   onSearch: (text: string) => void
+  style?: React.CSSProperties
+  variant?: 'outline' | 'normal'
+  color?: "pink" | "cyan" | "green" | "orange" | "purple" | "red" | "yellow" | "white" | undefined
 }
 
 const useStyles = makeStyles(() =>
@@ -35,12 +38,13 @@ const SearchBar = (props: Props) => {
   }, [text, onSearch])
 
   return (
-    <Container>
+    <Container style={props.style}>
       <Input
         id="standard-basic"
         placeholder="Pesquisar"
         onChange={(text: any) => setText(text.target.value)}
-        color='pink'
+        color={props.color ? props.color : 'pink'}
+        variant={props.variant ? props.variant : 'normal'}
       />
       <IconButton
         className={classes.iconButton}

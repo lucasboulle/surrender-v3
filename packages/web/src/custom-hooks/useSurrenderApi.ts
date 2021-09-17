@@ -14,13 +14,16 @@ export const useSurrenderApi = (apiCall: IApiCall) => {
     setError(undefined)
     setSuccess(undefined)
 
-    const url = new URL('http://surrender-production.sa-east-1.elasticbeanstalk.com' + apiCall.path)
+    // const url = new URL('http://surrender-production.sa-east-1.elasticbeanstalk.com' + apiCall.path)
+    const url = new URL('http://localhost:8080' + apiCall.path)
     if (params) {
       Object.keys(params).forEach(key => {url.searchParams.append(key, params[key])})
     }
 
     fetch(url.href)
-    .then(async (response) => { setSuccess(await response.json()) })
+    .then(async (response) => { 
+
+      setSuccess(await response.json()) })
     .catch(setError).finally(() => {
       setLoading(false)
     })

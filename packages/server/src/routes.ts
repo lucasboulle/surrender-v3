@@ -5,6 +5,7 @@ import {
   getMatchlistByAccount, 
   getSummonerByAccount, 
   getSummonerByName, 
+  getSummonerEntriesBySummonerId, 
   getSummonerLeagueByAccount, 
   getTimelinesByMatch 
 } from './api/riot/RiotApiService'
@@ -93,13 +94,22 @@ routes.post('/auth/login', async (request, response) => {
 
 routes.get('/summoner/by-name', async (request, response) => {
   const { query } = request
-  train({ input: [0, 1], output: [1] })
-  for (var i = 0; i < 9000; i++) {
-    train({ input: [0, 1], output: [1] })
-  }
-  const output = net.run([absummoner.id)))
-  })
+
+  return response.json({...(await getSummonerByName(String(query.summonerName))) })
 })
+
+routes.get('/summoner/by-account', async (request, response) => {
+  const { query } = request
+
+  return response.json({...(await getSummonerByAccount(String(query.summonerAccount))) })
+})
+
+routes.get('/summoner/entries/by-summoner', async (request, response) => {
+  const { query } = request
+  
+  return response.json({...(await getSummonerEntriesBySummonerId(String(query.summonerId))) })
+})
+
 
 routes.get('/match/by-id', async (request, response) => {
   const { query } = request
@@ -110,6 +120,7 @@ routes.get('/match/by-id', async (request, response) => {
 
 routes.get('/matchlist/by-account', async (request, response) => {
   const { query } = request
+
   return response.json({ ...(await getMatchlistByAccount(String(query.summonerAccount))) })
 })
 

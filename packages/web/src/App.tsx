@@ -7,8 +7,7 @@ import MainPage from './pages/MainPage';
 import Match from './pages/Match';
 import Champion from './pages/Champion';
 import {Helmet} from 'react-helmet';
-import surrenderIcon from './images/surrender-logo.png'
-
+import '@dracula/dracula-ui/styles/dracula-ui.css'
 function App() {
   return (
     <>
@@ -23,7 +22,7 @@ function App() {
           <Route path="/match/:matchId" component={Match} />
           <Route path="/champion/:championId" component={Champion} />
         </Switch>
-        <Redirect to="/main"/>
+        {/* <Redirect to="/main"/> */}
       </Router>
       <GlobalStyle />
     </>
