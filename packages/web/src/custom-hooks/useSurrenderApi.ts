@@ -5,8 +5,8 @@ interface IApiCall {
 }
 
 export const useSurrenderApi = (apiCall: IApiCall) => {
-  const [success, setSuccess] = React.useState<() => void>()
-  const [error, setError] = React.useState()
+  const [success, setSuccess] = React.useState<any>()
+  const [error, setError] = React.useState<any>()
   const [isLoading, setLoading] = React.useState(false)
 
   const doRequest = React.useCallback((params?: any) => {

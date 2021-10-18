@@ -45,7 +45,7 @@ const Champion: React.FC = () => {
   React.useEffect(() => {
     if(getDdragonDataSetSuccess) {
       //@ts-ignore
-      setChampion(getChampionByKey(String(championId), getDdragonDataSetSuccess.data))
+      // setChampion(getChampionByKey(String(championId), getDdragonDataSetSuccess.data))
       } 
   }, [getDdragonDataSetSuccess])
 

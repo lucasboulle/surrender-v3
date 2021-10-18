@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { Colors } from '../../utils/Colors';
 
 export const Container = styled.div`
-color: #2e3440;
-background: #434c5e;
+color: ${Colors.pink};
+background: ${Colors.background};
 width: 100%;
 height: 100%;
 display: flex;

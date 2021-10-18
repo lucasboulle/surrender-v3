@@ -1,0 +1,58 @@
+F assists
+O baronKills
+S bountyLevel
+championId
+O damageDealtToBuildings
+O damageDealtToObjectives
+O damageDealtToTurrets
+F damageSelfMitigated
+F S deaths
+O dragonKills
+F doubleKills
+F firstBloodAssist
+F firstBloodKill
+O firstTowerAssist
+FA goldEarned
+FA goldSpent
+S individualPosition
+F kills
+F largestKillingSpree
+F largestMultiKill
+S longestTimeSpentLiving
+F magicDamageDealt
+F magicDamageDealtToChampions
+F magicDamageTaken
+FA neutralMinionsKilled
+O nexusKills
+O nexusLost
+O nexusTakedowns
+O objectivesStolen
+F pentaKills
+F physicalDamageDealt
+F physicalDamageDealtToChampions
+F physicalDamageTaken
+TODO teamId
+F O A S FA totalDamageDealt
+F totalDamageDealtToChampions
+F totalDamageShieldedOnTeammates
+F totalDamageTaken
+F totalHeal
+F totalHealsOnTeammates
+F totalMinionsKilled
+F totalTimeCCDealt
+F A totalTimeSpentDead
+F totalUnitsHealed
+F A tripleKills
+F A quadraKills
+F A trueDamageDealt
+F A trueDamageDealtToChampions
+F trueDamageTaken
+O turretKills
+O turretTakedowns
+O S turretsLost
+F S unrealKills
+V visionScore
+V visionWardsBoughtInGame
+V wardsKilled
+V wardsPlaced
+F O A S FA win

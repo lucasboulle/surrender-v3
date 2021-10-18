@@ -19,32 +19,22 @@ const useStyles = makeStyles(() =>
   })
 )
 
-
-
 const MainPage: React.FC = () => {
 
   const classes = useStyles()
   const history = useHistory()
-  const [searchName, setSearchName] = React.useState()
-  const [success, error, isLoading, getSummonerByName] = useSurrenderApi({ path: '/summoner/by-name' })
+  const [success, error, isLoading, getSummonerByName, doReset] = useSurrenderApi({ path: '/summoner/by-name' })
   const ref = useRef<any>()
 
   const goToProfilePage = React.useCallback(async (summonerName: string) => {
-    // @ts-ignore
     getSummonerByName({ summonerName })
-  }, [])
+  }, [getSummonerByName])
 
   React.useEffect(() => {
-    console.log('🚀 ~ file: index.tsx ~ line 39 ~ React.useEffect ~ success', success)
     if (success) {
-      // @ts-ignore
-      history.push(`/profile/${success.accountId}`)
+      history.push(`/profile/${success.id}/${success.puuid}`)
     }
-  }, [success])
-
-  React.useEffect(() => {
-    console.log("width", ref?.current?.offsetWidth);
-  }, []);
+  }, [success, history])
   return (
     <>
       <Container>

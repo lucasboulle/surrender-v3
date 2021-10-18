@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { Colors } from '../../utils/Colors';
 
 export const PlayerMatchCardContainer = styled.div`
   border-radius: 15px;
-  background: #5e81ac;
-  width: 400px;
-  height: 100px;
+  background: ${Colors.background};
+  width: 440px;
+  height: 110px;
   display: flex;
   flex-direction: row;
   margin: 10px;
@@ -30,12 +31,13 @@ export const RowContainer = styled.div`
 `
 
 export const LeftPlayerMatchCardContainer =  styled.div`
-  width: 50%;
+  width: 80%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-self: flex-end;
   padding-right: 15px;
+  align-items: flex-end;
 `
 
 export const LeftPlayerMatchCardRowContainer =  styled.div`
@@ -64,14 +66,12 @@ export const RightPlayerMatchCardRowContainer =  styled.div`
   display: flex;
   flex-direction: row;
   align-self: flex-start;
-  align-items: flex-start;
   padding-left: 15px;
 `
 
 export const InfoTitle = styled.p`
   font-size: 15px;
   font-weight: bold;
-  margin-left: 10px;
 `
 export const InfoText = styled.p`
   font-size: 14px;

@@ -1,17 +1,9 @@
 import bodyParser from 'body-parser'
 import express from 'express'
-import { 
-  getMatchById, 
-  getMatchlistByAccount, 
-  getSummonerByAccount, 
-  getSummonerByName, 
-  getSummonerEntriesBySummonerId, 
-  getSummonerLeagueByAccount, 
-  getTimelinesByMatch 
-} from './api/riot/RiotApiService'
 import { authenticate, decodeUserToken, generateToken } from './Services/AuthService'
 import brain from 'brain.js' 
 import { updateNeuralData } from './utils/updateNeuralData'
+import { getSummonerByName, getSummonerByAccount, getSummonerEntriesBySummonerId, getMatchById, getMatchlistByPuuid, getTimelinesByMatch } from './Services/RiotApiService'
 
 const routes = express.Router()
 const unprotectedRoutes = [
@@ -101,7 +93,7 @@ routes.get('/summoner/by-name', async (request, response) => {
 routes.get('/summoner/by-account', async (request, response) => {
   const { query } = request
 
-  return response.json({...(await getSummonerByAccount(String(query.summonerAccount))) })
+  return response.json({...(await getSummonerByAccount(String(query.puuid))) })
 })
 
 routes.get('/summoner/entries/by-summoner', async (request, response) => {
@@ -118,10 +110,10 @@ routes.get('/match/by-id', async (request, response) => {
 
 })
 
-routes.get('/matchlist/by-account', async (request, response) => {
+routes.get('/matchlist/by-puuid', async (request, response) => {
   const { query } = request
 
-  return response.json({ ...(await getMatchlistByAccount(String(query.summonerAccount))) })
+  return response.json({matchList: (await getMatchlistByPuuid(String(query.puuid))) })
 })
 
 routes.get('/timelines/by-match', async (request, response) => {

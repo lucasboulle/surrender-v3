@@ -15,11 +15,11 @@ function App() {
         <meta charSet="utf-8" />
         <title>{'surrender.gg'}</title>
       </Helmet>
-      <Router>
+      <Router >
         <Switch>
-          <Route path="/main" exact component={MainPage} />
-          <Route path="/profile/:accountId" component={Profile} />
-          <Route path="/match/:matchId" component={Match} />
+          <Route path="/main" component={MainPage} />
+          <Route path="/profile/:id/:puuid" component={Profile} />
+          <Route path="/match" component={Match} />
           <Route path="/champion/:championId" component={Champion} />
         </Switch>
         {/* <Redirect to="/main"/> */}

@@ -1,6 +1,6 @@
 import React from 'react'
 import SearchBar from '../SearchBar';
-import { Box } from '@dracula/dracula-ui';
+import { Box, Text } from '@dracula/dracula-ui';
 import surrenderLogo from '../../images/surrender-new-pink-logo.png'
 import { Container } from './styles';
 import { makeStyles, createStyles } from '@material-ui/styles';

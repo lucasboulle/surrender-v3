@@ -74,6 +74,11 @@ border-radius: 150px;
 align-self: center;
 `
 
+export const ChampionSplash = styled.img`
+  display: block;
+  width: 100%;
+`
+
 export const ImageContainer = styled.div`
   color: #2e3440;
   background: #d8dee9;
@@ -84,4 +89,5 @@ export const ImageContainer = styled.div`
   justify-content: flex-start;
   align-items: sretch;
   padding: 0 0 0 0;
-`;
+`
+
