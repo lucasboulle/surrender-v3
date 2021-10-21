@@ -41,4 +41,41 @@ export const CardsRowContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  `
+
+  export const InfoStatistics = styled.p`
+  font-size: 25px;
+  font-weight: bold;
+`
+
+export const TipText = styled.p`
+font-size: 25px;
+font-weight: bold;
+color: ${Colors.purple};
+margin-right: 50px;
+`
+
+export const TipTitile = styled.p`
+  font-size: 35px;
+  font-weight: bold;
+`
+
+export const StatisticTitle = styled.p`
+  font-size: 35px;
+  font-weight: bold;
+  color: ${Colors.red}
+`
+
+
+export const GPITitile = styled.p`
+  font-size: 35px;
+  font-weight: bold;
+  color: ${Colors.purple}
+`
+
+export const ChampionIcon = styled.img`
+  width: 560px;
+  height: 560px;
+  margin-top: 10px;
+  margin-bottom: 5px;
 `

@@ -4,6 +4,9 @@ import { authenticate, decodeUserToken, generateToken } from './Services/AuthSer
 import brain from 'brain.js' 
 import { updateNeuralData } from './utils/updateNeuralData'
 import { getSummonerByName, getSummonerByAccount, getSummonerEntriesBySummonerId, getMatchById, getMatchlistByPuuid, getTimelinesByMatch } from './Services/RiotApiService'
+import { extractNeuralParametersFromRiotPayload } from './utils/extractNeuralParametersFromRiotPayload'
+import { getNeuralDataFromTraining } from './utils/getNeuralDataFromTraining'
+import * as dataset from '../data-assets/match-by-id-response-example.json' 
 
 const routes = express.Router()
 const unprotectedRoutes = [
@@ -19,20 +22,34 @@ const config = {
 
 const net = new brain.NeuralNetwork(config)
 
-const train = (train?: {
+const train = async (train?: {
   input: number[]
   output: number[]
 }) => {
   if (train) {
     net.train([train])
   } else {
-    const contentData = require('../data-assets/match-by-id-response-example.json')
+    const contentData = await getNeuralDataFromTraining()
 
     net.train(contentData);
+    let winRatio = 0
+    for (let index = 0; index < dataset.matches.length; index++) {
+      for (let j = 0; j < dataset.matches[index].match.info.participants.length; j++) {
+        const output: any = net.run(extractNeuralParametersFromRiotPayload(dataset.matches[index].match.info.participants[j] as any))
+        console.log('🚀 ~ file: routes.ts ~ line 40 ~  output.win',  output.win)
+        winRatio += output.win
+      }
+    }
+    // const output: any = net.run(extractNeuralParametersFromRiotPayload(dataset.matches[0].match.info.participants[8] as any)); 
+    // const output1: any = net.run(extractNeuralParametersFromRiotPayload(dataset.matches[0].match.info.participants[9] as any));// [0.987]
+    // console.log('Saída do primeiro conjunto: ', output)
+    // console.log('Saída do segundo conjunto: ', output1)
+    // console.log('Saída do segundo conjunto: ', ((output.win + output1.win)/2))
+    console.log(`média de acuracidade para ${dataset.matches.length*10} players: `, winRatio/(dataset.matches.length*10))
   }
 }
 
-// train();
+train();
 
 routes.use((request, response, next) => {
   
@@ -69,9 +86,10 @@ routes.get('/echo', (request, response) => {
 
   // const test2 = test.map((v: any) => v.teste)
 
-  const output = net.run([1, 0]); // [0.987]
+  // const output = net.run(extractNeuralParametersFromRiotPayload(dataset.info.participants[0] as any)); // [0.987]
+  // console.log('🚀 ~ file: routes.ts ~ line 76 ~ routes.get ~ output', output)
 
-  return response.json({ message: output })
+  // return response.json({ message: output })
 })
 
 routes.post('/auth/login', async (request, response) => {  

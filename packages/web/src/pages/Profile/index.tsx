@@ -120,6 +120,8 @@ const Profile: React.FC = () => {
     getDdragonDataSet
   ] = useDdragonDataSet()
 
+  const randomNumberInRange = (min: number, max: number) => ~~(Math.random() * (max - min) + min);
+
   const [summoner, setSummoner] = React.useState<IRiotSummoner>()
   const [summonerEntries, setSummonerEntries] = React.useState<any>()
   const [matchList, setMatchList] = React.useState<IMatchParticipant[]>()
@@ -269,7 +271,7 @@ const Profile: React.FC = () => {
       { championPoolList && (
       <Box color="black" className={classes.championsBox}>
           <ContentContainer>
-            <Text className={classes.championTextRating} color="purple">92/100</Text>
+            <Text className={classes.championTextRating} color="purple">{randomNumberInRange(0, 100)}/100</Text>
             <Avatar
               src={buildChampionUrl('champion', championPoolList[0].championKey, dataset)}
               title="champion 1"
@@ -282,7 +284,7 @@ const Profile: React.FC = () => {
 
           {championPoolList.length >= 2 && (
             <ContentContainer>
-              <Text className={classes.championTextRating} color="pink">57/100</Text>
+              <Text className={classes.championTextRating} color="pink">{randomNumberInRange(0, 100)}/100</Text>
               <Avatar
                 src={buildChampionUrl('champion', championPoolList[1].championKey, dataset)}
                 title="champion 2"
@@ -296,7 +298,7 @@ const Profile: React.FC = () => {
 
           {championPoolList.length >= 3 && (
             <ContentContainer onClick={goToChampionPage}>
-              <Text className={classes.championTextRating} color="cyan">35/100</Text>
+              <Text className={classes.championTextRating} color="cyan">{randomNumberInRange(0, 100)}/100</Text>
               <Avatar
                 src={buildChampionUrl('champion', championPoolList[2].championKey, dataset)}
                 title="champion 3"
@@ -310,7 +312,7 @@ const Profile: React.FC = () => {
 
           {championPoolList.length >= 4 && (
             <ContentContainer onClick={goToChampionPage}>
-              <Text className={classes.championTextRating} color="green">31/100</Text>
+              <Text className={classes.championTextRating} color="green">{randomNumberInRange(0, 100)}/100</Text>
               <Avatar
                 src={buildChampionUrl('champion', championPoolList[3].championKey, dataset)}
                 title="champion 4"

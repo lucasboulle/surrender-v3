@@ -70,15 +70,21 @@ export const RightPlayerMatchCardRowContainer =  styled.div`
 `
 
 export const InfoTitle = styled.p`
-  font-size: 15px;
+  font-size: 25px;
   font-weight: bold;
 `
 export const InfoText = styled.p`
-  font-size: 14px;
+  font-size: 24px;
+  color: ${Colors.purple}
 `
 export const ChampionIcon = styled.img`
   width: 60px;
   height: 60px;
   margin-top: 10px;
   margin-bottom: 5px;
+`
+
+export const InfoStatistics = styled.p`
+  font-size: 25px;
+  font-weight: bold;
 `

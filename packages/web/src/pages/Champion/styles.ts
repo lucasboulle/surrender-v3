@@ -1,16 +1,16 @@
 import styled from 'styled-components';
+import { Colors } from '../../utils/Colors';
 
 export const Container = styled.div`
 color: #2e3440;
-background: #434c5e;
+background: ${Colors.background};
 width: 100%;
-height: 200%;
+height: 100%;
 display: flex;
 flex-direction: column;
-align-items: center;
-justify-content: flex-start;
+align-items: sretch;
+justidy-content: flex-start;
 padding: 0 0 0 0;
-margin-bottom: 150px;
 `;
 
 export const ImageContainer = styled.div`
@@ -35,10 +35,13 @@ export const ChampionIcon = styled.img`
 
 export const ChampionTitleContainer = styled.div`
   height: 5%;
-  width: 60%;
+  width: 80%;
   display: flex;
+  flex: 2;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: center;
+  margin-left: 10%;
 `
 export const ChartsContainer = styled.div`
   height:  40%;
@@ -60,18 +63,26 @@ export const ChampionSkillInfo = styled.div`
 `
 
 export const InfoTitle = styled.p`
-  font-size: 24px;
+  font-size: 34px;
   margin-left: 15px;
+  color: ${Colors.pink}
 `
 
 export const ChartTitle = styled.p`
   font-size: 24px;
   margin-left: 15px;
+  color: ${Colors.purple}
 `
 
 export const InfoText = styled.p`
-  font-size: 15px;
+  font-size: 25px;
+  color: ${Colors.purple}
 `
+
+export const Text = styled.p`
+  font-size: 25px;
+`
+
 export const SkillImage = styled.img`
   border: 1px solid;  
   border-radius: 5px;
@@ -158,3 +169,12 @@ export const LeftStatsChampionContainer = styled.div`
   align-items: center;
 `;
 
+export const ColumnContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+`

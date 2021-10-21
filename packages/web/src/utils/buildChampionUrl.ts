@@ -9,6 +9,6 @@ export const buildChampionUrl = (imageType: 'splash' | 'loading' | 'champion', c
   })
 
   return imageType === 'champion' 
-  ? `http://ddragon.leagueoflegends.com/cdn/10.23.1/img/champion/${championName}.png`
+  ? `http://ddragon.leagueoflegends.com/cdn/11.20.1/img/champion/${championName}.png`
   : `${ddragonChampionImageBaseUrl}/${imageType}/${championName}_0.jpg`
 }
