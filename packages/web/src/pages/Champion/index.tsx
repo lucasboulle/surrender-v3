@@ -36,7 +36,13 @@ import Header from '../../components/Header'
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend } from 'recharts'
 import { Colors } from '../../utils/Colors'
 import { makeStyles, Theme, createStyles } from '@material-ui/core'
-import { Badge } from '@dracula/dracula-ui'
+import { Badge, Divider } from '@dracula/dracula-ui'
+import { buildChampionUrl } from '../../utils/buildChampionUrl'
+import { useDdragonDataSetForLore } from '../../custom-hooks/useDdragonDataSetForLore'
+import { getSummonerPassiveImage } from '../../utils/getSummonerPassiveImage'
+import { getSummonerSkillsImage } from '../../utils/getSummonerSkillsImage'
+import { useDdragonDataSetForItem } from '../../custom-hooks/useDdragonDataSetForItem'
+import { buildItemUrlWithImageType } from '../../utils/buildItemUrlWithImageType'
 
 const SkillArrowPriority = () => <ArrowRight fontSize={'large'} style={{ color: '#88c0d0', marginTop: '6px' }} />
 
@@ -57,20 +63,46 @@ const Champion: React.FC = () => {
   //@ts-ignore
   const { championId } = useParams()
   const [getDdragonDataSetSuccess, getDdragonDataSetErrorm, isLoadingDdragonDataSet, getDdragonDataSet] = useDdragonDataSet()
+  const [getDdragonDataSetSuccessForLore, getDdragonDataSetErrorForLore, isLoadingDdragonDataSetForLore, getDdragonDataSetForLore] = useDdragonDataSetForLore()
+  const [getDdragonDataSetSuccessForItem, getDdragonDataSetErrorForItem, isLoadingDdragonDataSetForItem, getDdragonDataSetForItem] = useDdragonDataSetForItem()
   const [champion, setChampion] = React.useState<any>()
+  const [items, setitems] = React.useState<any>()
+  const [championLore, setChampionLore] = React.useState<any>()
+  const randomNumberInRange = (min: number, max: number) => ~~(Math.random() * (max - min) + min)
+  console.log('🚀 ~ file: index.tsx ~ line 65 ~ setChampionLore', championLore)
   const styles = useStyles()
 
   React.useEffect(() => {
     getDdragonDataSet()
+    getDdragonDataSetForItem()
   }, [])
 
   React.useEffect(() => {
     if (getDdragonDataSetSuccess) {
       setChampion(getChampionByKey(String(championId), getDdragonDataSetSuccess.data))
-      console.log('🚀 ~ file: index.tsx ~ line 60 ~ champion', champion && champion.stats)
-
     }
   }, [getDdragonDataSetSuccess, champion])
+
+  React.useEffect(() => {
+    if (getDdragonDataSetSuccessForLore) {
+      setChampionLore(getDdragonDataSetSuccessForLore.data[champion.id])
+    }
+  }, [getDdragonDataSetSuccessForLore, champion])
+
+  React.useEffect(() => {
+    if (champion) {
+      getDdragonDataSetForLore(champion.id)      
+    }
+  }, [champion])
+
+  React.useEffect(() => {
+    if (getDdragonDataSetSuccessForItem) {
+      setitems(Object.keys(getDdragonDataSetSuccessForItem.data))
+    }
+  }, [getDdragonDataSetSuccessForItem])
+
+  // console.log(buildItemUrlWithImageType(items[~~randomNumberInRange(0, 20)].image.full))
+
 
   const data = [
     {
@@ -135,112 +167,108 @@ const Champion: React.FC = () => {
     }
   ]
 
-  const ChampionTags = () => {
-    const arrColors: any = ['purple', 'pink', 'cyan', 'red']
-    let i = 0
-    console.log('oba')
-    return (
-      <>
-        {champion.tags.map((tag: string) => {
-          const badge = () => <Badge color={arrColors[i]} variant="subtle">{tag}</Badge>
-          i += 1
-          return badge
-        })}
-      </>
-    )
-  }
-
   return (
     <Container>
       <Header />
-      <ChampionTitleContainer>
-        <ChampionIcon src={rivenExampleIcon} />
-        <TitleChampionContainer>
-          <InfoTitle> Riven </InfoTitle>
-          <InfoText> The broken blade</InfoText>
-          <RowContainer>
-            { champion &&  (
-            <>
-              {champion.tags.map((tag: string) => (
-                <Badge color="cyan" variant="subtle">{tag}</Badge>
+      {champion && championLore && (
+        <>
+          <ChampionTitleContainer>
+            <ChampionIcon src={buildChampionUrl('champion', championId, getDdragonDataSetSuccess.data)} />
+            <TitleChampionContainer>
+              <InfoTitle> {champion.name} </InfoTitle>
+              <InfoText> {champion.title}</InfoText>
+              <RowContainer>
+                {champion && (
+                  <>
+                    {champion.tags.map((tag: string) => (
+                      <Badge color="cyan" variant="subtle">{tag}</Badge>
+                    ))}
+                  </>)}
+              </RowContainer>
+            </TitleChampionContainer>
+            <ChampionSkillInfo>
+              <SpellContainer>
+                <SpellImage src={getSummonerSpellImage('SummonerFlash')} />
+                <SpellImage src={getSummonerSpellImage('SummonerTeleport')} />
+              </SpellContainer>
+              <RowContainer>
+                <SkillImage src={getSummonerPassiveImage(championLore.passive.image.full)} />
+                <SkillImage src={getSummonerSkillsImage(championLore.spells[0].image.full)} />
+                <SkillImage src={getSummonerSkillsImage(championLore.spells[1].image.full)} />
+                <SkillImage src={getSummonerSkillsImage(championLore.spells[2].image.full)} />
+                <SkillImage src={getSummonerSkillsImage(championLore.spells[3].image.full)} />
+              </RowContainer>
+              <RowContainer>
+                <SkillImage src={getSummonerSkillsImage(championLore.spells[1].image.full)} />
+                <SkillArrowPriority />
+                <SkillImage src={getSummonerSkillsImage(championLore.spells[0].image.full)} />
+                <SkillArrowPriority />
+                <SkillImage src={getSummonerSkillsImage(championLore.spells[2].image.full)} />
+              </RowContainer>
+            </ChampionSkillInfo>
+            <ColumnContainer>
+              {champion && (
+                <>
+                  <Text style={{ color: Colors.red }}> Quantidade de HP - {champion.stats.hp}</Text>
+                  <Text style={{ color: Colors.cyan }}> Dano Inicial - {champion.stats.attackdamage}</Text>
+                  <Text style={{ color: Colors.green }}> Movespeed - {champion.stats.movespeed}</Text>
+                  <Text style={{ color: Colors.pink }}> Dano de alcance - {champion.stats.attackrange}</Text>
+                </>
+              )}
+            </ColumnContainer>
+          </ChampionTitleContainer>
+          <ChartsContainer>
+            <ColumnContainer>
+              <RadarChart
+                outerRadius={150}
+                width={500}
+                height={500}
+                data={playersData}
+                className={styles.hexGrid}
+              >
+                <PolarGrid stroke={Colors.comment} />
+                <PolarAngleAxis dataKey="subject" />
+                <PolarRadiusAxis angle={30} domain={[0, 150]} />
+                <Radar
+                  name="servidor"
+                  dataKey="B"
+                  stroke={teamColors.enemy}
+                  fill={teamColors.enemy}
+                  fillOpacity={0.6}
+                />
+                <Radar
+                  name="você"
+                  dataKey="A"
+                  stroke={teamColors.ally}
+                  fill={teamColors.ally}
+                  fillOpacity={0.6}
+                />
+                <Legend />
+              </RadarChart>
+            </ColumnContainer>
+            <ColumnContainer>
+            <SimpleChart data={data} />
+            </ColumnContainer>
+            <ColumnContainer>
+              <InfoTitle style={{ color: Colors.pink }}> Algumas dicas fo {champion.name} pra você...</InfoTitle>
+              {championLore.allytips.map((tip: string) => (
+                <Text style={{ color: Colors.red }}> {tip} </Text>
               ))}
-            </>)}
-          </RowContainer>
-        </TitleChampionContainer>
-        <ChampionSkillInfo>
-          <SpellContainer>
-            <SpellImage src={getSummonerSpellImage('SummonerFlash')} />
-            <SpellImage src={getSummonerSpellImage('SummonerTeleport')} />
-          </SpellContainer>
-          <RowContainer>
-            <SkillImage src={rivenQExample} />
-            <SkillImage src={rivenQExample} />
-            <SkillImage src={rivenQExample} />
-            <SkillImage src={rivenQExample} />
-            <SkillImage src={rivenQExample} />
-          </RowContainer>
-          <RowContainer>
-            <SkillImage src={rivenQExample} />
-            <SkillArrowPriority />
-            <SkillImage src={rivenQExample} />
-            <SkillArrowPriority />
-            <SkillImage src={rivenQExample} />
-          </RowContainer>
-        </ChampionSkillInfo>
-        <ColumnContainer>
-          {champion && (
-            <>
-              <Text style={{ color: Colors.red }}> Quantidade de HP - {champion.stats.hp}</Text>
-              <Text style={{ color: Colors.cyan }}> Dano Inicial - {champion.stats.attackdamage}</Text>
-              <Text style={{ color: Colors.green }}> Movespeed - {champion.stats.movespeed}</Text>
-              <Text style={{ color: Colors.pink }}> Dano de alcance - {champion.stats.attackrange}</Text>
-            </>
-          )}
-        </ColumnContainer>
-      </ChampionTitleContainer>
-      <ChartsContainer>
-        <ColumnContainer>
-          <RadarChart
-            outerRadius={150}
-            width={500}
-            height={500}
-            data={playersData}
-            className={styles.hexGrid}
-          >
-            <PolarGrid stroke={Colors.comment} />
-            <PolarAngleAxis dataKey="subject" />
-            <PolarRadiusAxis angle={30} domain={[0, 150]} />
-            <Radar
-              name="servidor"
-              dataKey="B"
-              stroke={teamColors.enemy}
-              fill={teamColors.enemy}
-              fillOpacity={0.6}
-            />
-            <Radar
-              name="você"
-              dataKey="A"
-              stroke={teamColors.ally}
-              fill={teamColors.ally}
-              fillOpacity={0.6}
-            />
-            <Legend />
-          </RadarChart>
-        </ColumnContainer>
-        <SimpleChart data={data} />
-      </ChartsContainer>
-      <StatsChampionContainer>
-        <StatsChampionLeftContainer>
-          <RuneTree />
-        </StatsChampionLeftContainer>
-        <StatsChampionRightContainer>
-          <ItemPurchased src={blackCleaverExample} />
-          <ItemPurchased src={blackCleaverExample} />
-          <ItemPurchased src={blackCleaverExample} />
-          <ItemPurchased src={blackCleaverExample} />
-          <ItemPurchased src={blackCleaverExample} />
-        </StatsChampionRightContainer>
-      </StatsChampionContainer>
+            </ColumnContainer>
+          </ChartsContainer>
+          <Divider color="purple" />
+          <StatsChampionContainer>
+              <InfoTitle style={{ color: Colors.pink }} > Items core</InfoTitle>
+            <RowContainer>
+              {/* <ItemPurchased src={} /> */}
+              <ItemPurchased src={blackCleaverExample} />
+              <ItemPurchased src={blackCleaverExample} />
+              <ItemPurchased src={blackCleaverExample} />
+              <ItemPurchased src={blackCleaverExample} />
+            </RowContainer>
+          </StatsChampionContainer>
+        </>
+      )}
     </Container>
   )
 }

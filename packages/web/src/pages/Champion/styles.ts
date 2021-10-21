@@ -10,7 +10,7 @@ display: flex;
 flex-direction: column;
 align-items: sretch;
 justidy-content: flex-start;
-padding: 0 0 0 0;
+padding-bottom: 200px;
 `;
 
 export const ImageContainer = styled.div`
@@ -42,14 +42,16 @@ export const ChampionTitleContainer = styled.div`
   align-items: flex-end;
   justify-content: center;
   margin-left: 10%;
+  padding-top: 100px;
 `
 export const ChartsContainer = styled.div`
   height:  40%;
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: center;
+  padding-top: 100px;
 `
 
 export const ChampionSkillInfo = styled.div`
@@ -109,6 +111,15 @@ export const RowContainer = styled.div`
   margin-top: 15px;
 `;
 
+export const RowContainerItems = styled.div`
+  color: #fffff; 
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 50%;
+  margin-top: 500px;
+`;
+
 export const SpellContainer = styled.div`
   color: #fffff; 
   display: flex;
@@ -124,15 +135,18 @@ export const TitleChampionContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   height: 100%;
+  width: 600px;
   margin-left: 5px;
 `;
 
 export const StatsChampionContainer = styled.div`
   height: 15%;
-  width: 80%;
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding-top: 150px;
 `;
 
 export const StatsChampionLeftContainer = styled.div`
@@ -157,8 +171,8 @@ export const ItemPurchased = styled.img`
   border: 1px solid;  
   border-radius: 5px;
   border-image-width: 5px;
-  width: 35px;
-  height: 35px;
+  width: 205px;
+  height: 205px;
 `
 
 export const LeftStatsChampionContainer = styled.div`

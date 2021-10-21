@@ -9,7 +9,6 @@ height: 100%;
 display: flex;
 flex-direction: column;
 align-items: sretch;
-justidy-content: flex-start;
 padding: 0 0 0 0;
 `;
 

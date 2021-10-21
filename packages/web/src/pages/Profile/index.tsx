@@ -120,7 +120,7 @@ const Profile: React.FC = () => {
     getDdragonDataSet
   ] = useDdragonDataSet()
 
-  const randomNumberInRange = (min: number, max: number) => ~~(Math.random() * (max - min) + min);
+  const randomNumberInRange = (min: number, max: number) => ~~(Math.random() * (max - min) + min)
 
   const [summoner, setSummoner] = React.useState<IRiotSummoner>()
   const [summonerEntries, setSummonerEntries] = React.useState<any>()
@@ -152,8 +152,8 @@ const Profile: React.FC = () => {
     }
   }, [matchList, dataset])
 
-  const goToChampionPage = React.useCallback(() => {
-      history.push(`/champion/92`)
+  const goToChampionPage = React.useCallback((championId: string) => {
+      history.push(`/champion/${championId}`)
   }, [])
 
   const goToMatchPage = React.useCallback((matchIndex: number) => {
@@ -297,7 +297,7 @@ const Profile: React.FC = () => {
           )}
 
           {championPoolList.length >= 3 && (
-            <ContentContainer onClick={goToChampionPage}>
+            <ContentContainer onClick={() => goToChampionPage(championPoolList[2].championKey)}>
               <Text className={classes.championTextRating} color="cyan">{randomNumberInRange(0, 100)}/100</Text>
               <Avatar
                 src={buildChampionUrl('champion', championPoolList[2].championKey, dataset)}
@@ -311,7 +311,7 @@ const Profile: React.FC = () => {
           )}
 
           {championPoolList.length >= 4 && (
-            <ContentContainer onClick={goToChampionPage}>
+            <ContentContainer onClick={() => goToChampionPage(championPoolList[3].championKey)}>
               <Text className={classes.championTextRating} color="green">{randomNumberInRange(0, 100)}/100</Text>
               <Avatar
                 src={buildChampionUrl('champion', championPoolList[3].championKey, dataset)}
