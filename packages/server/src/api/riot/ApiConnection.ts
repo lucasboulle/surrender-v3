@@ -5,7 +5,7 @@ const apiBaseUrl = 'https://br1.api.riotgames.com/lol'
 const newApiBaseUrl = 'https://americas.api.riotgames.com/lol'
 
 // TODO: Find another way to use this key
-const apiKey = 'RGAPI-4af9b2dc-ec7d-4899-9959-77fedafa4176'
+const apiKey = 'RGAPI-d8fddc36-7ff1-4586-9bb6-b8e526aa3bc8'
 // puuid da minha conta: boulle => 
 // qfNFbhyhq_YiCVDjgQYcp9Ne9E74nZr23IbYvIkqDUYK5iwk3uvBEk97pWxdkbln5I2ewZihp-iWSA
 // matchId de exemplo: BR1_2330861494

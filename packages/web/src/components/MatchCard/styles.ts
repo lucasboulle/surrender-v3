@@ -70,11 +70,11 @@ export const RightPlayerMatchCardRowContainer =  styled.div`
 `
 
 export const InfoTitle = styled.p`
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
 `
 export const InfoText = styled.p`
-  font-size: 24px;
+  font-size: 14px;
   color: ${Colors.purple}
 `
 export const ChampionIcon = styled.img`
