@@ -18,16 +18,18 @@ jobs:
 
     steps:
 
-    - name: Setting up private Dracula UI repo 
-      env: 
-        DRACULA_NPM_TOKEN: ${{secrets.REPO_TOKEN}}
-
     - uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    
+    - name: Dracula UI Action
+    with: 
+      DRACULA_NPM_TOKEN: ${{secrets.REPO_TOKEN}}
+    env: 
+      DRACULA_NPM_TOKEN: ${{secrets.REPO_TOKEN}}
 
     - name: Generate deployment package
       run: cd ./packages/server/ && yarn && yarn build && zip -r deploy.zip * -x "**node_modules**" && mv deploy.zip ../../  && cd -
