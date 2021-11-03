@@ -24,11 +24,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-# # In this step I am renaming my static main.js file by removing the auto-added hash from its name 
-#     - name: rename main js
-#       run: mv build/static/js/main.*.*.js build/static/js/main.js
+    # # In this step I am renaming my static main.js file by removing the auto-added hash from its name 
+    #     - name: rename main js
+    #       run: mv build/static/js/main.*.*.js build/static/js/main.js
       
-# Creating my deployment package and compressing it into a zip file   
+    # Creating my deployment package and compressing it into a zip file   
     - name: Generate deployment package
       run: cd ./packages/server/ && yarn && yarn build && zip -r deploy.zip * -x "**node_modules**" && mv deploy.zip ../../  && cd -
 
