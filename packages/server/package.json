@@ -15,7 +15,6 @@
     "jwt-simple": "^0.5.6",
     "lodash": "^4.17.21",
     "method-override": "*",
-    "mongodb": "^3.6.2",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
