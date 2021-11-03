@@ -29,6 +29,7 @@ jobs:
         run: |
             echo "//npm.pkg.github.com/:_authToken=${{secrets.REPO_TOKEN}}" >> ~/.npmrc
             echo "@dracula:registry=https://npm.pkg.github.com" >> ~/.npmrc
+    - run: yarn install
     
     - name: Generate deployment package
       run: cd ./packages/server/ && yarn && yarn build && zip -r deploy.zip * -x "**node_modules**" && mv deploy.zip ../../  && cd -
