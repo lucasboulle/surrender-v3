@@ -1,4 +1,4 @@
-import { findByEmailAndPassword } from "../Repository/UserRepository"
+// import { findByEmailAndPassword } from "../Repository/UserRepository"
 import { encode, decode } from 'jwt-simple'
 
 const secret = 'rLN"55@d76y_'
@@ -23,6 +23,6 @@ export const decodeUserToken = (token: string) => {
   return decoded
 }
 
-export const authenticate = async (email: string, password: string) => {
-  return await findByEmailAndPassword(email, password)
-}
+// export const authenticate = async (email: string, password: string) => {
+//   return await findByEmailAndPassword(email, password)
+// }

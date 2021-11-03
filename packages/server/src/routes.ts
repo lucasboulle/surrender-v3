@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser'
 import express from 'express'
-import { authenticate, decodeUserToken, generateToken } from './Services/AuthService'
+import { decodeUserToken, generateToken } from './Services/AuthService'
 import brain from 'brain.js' 
 import { updateNeuralData } from './utils/updateNeuralData'
 import { getSummonerByName, getSummonerByAccount, getSummonerEntriesBySummonerId, getMatchById, getMatchlistByPuuid, getTimelinesByMatch } from './Services/RiotApiService'
@@ -29,12 +29,13 @@ const train = async (train?: {
   if (train) {
     net.train([train])
   } else {
-    const contentData = await getNeuralDataFromTraining()
+    const contentData: any = await getNeuralDataFromTraining()
 
     net.train(contentData);
     let winRatio = 0
     for (let index = 0; index < dataset.matches.length; index++) {
       for (let j = 0; j < dataset.matches[index].match.info.participants.length; j++) {
+        //@ts-ignore
         const output: any = net.run(extractNeuralParametersFromRiotPayload(dataset.matches[index].match.info.participants[j] as any))
         console.log('🚀 ~ file: routes.ts ~ line 40 ~  output.win',  output.win)
         winRatio += output.win
