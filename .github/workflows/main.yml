@@ -25,8 +25,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Setting up private Dracula UI repo 
-      env: DRACULA_NPM_TOKEN: ${{ secrets.REPO_TOKEN }} 
-          
+      env: 
+        DRACULA_NPM_TOKEN: ${{secrets.REPO_TOKEN}} 
+
     # # In this step I am renaming my static main.js file by removing the auto-added hash from its name 
     #     - name: rename main js
     #       run: mv build/static/js/main.*.*.js build/static/js/main.js
