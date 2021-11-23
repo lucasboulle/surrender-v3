@@ -32,7 +32,6 @@ const teamColors: {
 }
 
 const MatchCard = (props: Props) => {
-
   return (
     <Box
       color={teamColors[props.team]}
@@ -59,16 +58,16 @@ const MatchCard = (props: Props) => {
           >
             {`${props.participant.kills}/${props.participant.deaths}/${props.participant.assists}`}
           </InfoText>
-          <InfoText style={{ color: '#ebcb8b' }}>
+          <InfoText style={{ color: Colors.black }}>
             {props.participant.goldEarned} gold
           </InfoText>
-          <InfoText style={{ color: '#a3be8c' }}>
+          <InfoText style={{ color: Colors.black }}>
             {props.participant.totalMinionsKilled} CS
           </InfoText>
-          <InfoText style={{ color: '#8fbcbb' }}>
+          <InfoText style={{ color: Colors.black }}>
             Level {props.participant.champLevel}
           </InfoText>
-          <InfoText style={{ color: '#b48ead' }}>p/ kill 25%</InfoText>
+          {/* <InfoText style={{ color: Colors.black }}>p/ kill 25%</InfoText> */}
         </LeftPlayerMatchCardContainer>
       </RightPlayerMatchCardRowContainer>
 

@@ -1,5 +1,9 @@
 export const timestampToMatchTime = (millis: number) => {
-  const minutes = Math.floor(millis / 60000);
-  const seconds = Number(((millis % 60000) / 1000).toFixed(0));
-  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  var date = new Date(millis * 1000);
+  var hours = date.getHours();
+  var minutes = "0" + date.getMinutes();
+  var seconds = "0" + date.getSeconds();
+
+  var formattedTime = minutes.substr(-2) + ':' + seconds.substr(-2);
+  return formattedTime
 }

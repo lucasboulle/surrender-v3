@@ -133,6 +133,8 @@ const Profile: React.FC = () => {
     : undefined
 , [summonerEntries])
 
+  console.log(matchList && matchList[0].match.info.gameEndTimestamp, 'yooo')
+
   const championPoolList = React.useMemo(() => {
     if (matchList && dataset) {
       const groupedObject = matchList.reduce((a: any, c: any) => (a[c.participantInfo.championId] = (a[c.participantInfo.championId] || 0) + 1, a), Object.create(null))
@@ -270,7 +272,7 @@ const Profile: React.FC = () => {
       {/* Top played champions */}
       { championPoolList && (
       <Box color="black" className={classes.championsBox}>
-          <ContentContainer>
+          <ContentContainer onClick={() => goToChampionPage(championPoolList[0].championKey)}>
             <Text className={classes.championTextRating} color="purple">{randomNumberInRange(0, 100)}/100</Text>
             <Avatar
               src={buildChampionUrl('champion', championPoolList[0].championKey, dataset)}
@@ -283,7 +285,7 @@ const Profile: React.FC = () => {
           </ContentContainer>
 
           {championPoolList.length >= 2 && (
-            <ContentContainer>
+            <ContentContainer onClick={() => goToChampionPage(championPoolList[1].championKey)}>
               <Text className={classes.championTextRating} color="pink">{randomNumberInRange(0, 100)}/100</Text>
               <Avatar
                 src={buildChampionUrl('champion', championPoolList[1].championKey, dataset)}
@@ -337,7 +339,7 @@ const Profile: React.FC = () => {
                 <ChampionSplash src={buildChampionUrl('splash', String(match.participantInfo.championId), dataset)} />
                 <GridListTileBar
                   // @ts-ignore
-                  title={`${match.participantInfo.championName} | ${match.participantInfo.lane} - ${timestampToMatchTime(match.match.info.gameDuration)}`}
+                  title={`${match.participantInfo.championName} | ${match.participantInfo.lane} - ${timestampToMatchTime(match.match.info.gameEndTimestamp)}`}
                   subtitle={'Solo/duo'}
                   actionIcon={
                     <IconButton className={classes.icon} onClick={() => { goToMatchPage(index) }}>

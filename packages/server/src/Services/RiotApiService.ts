@@ -45,6 +45,9 @@ export const getTimelinesByMatch = async (matchId: string) => {
   return await getRequest(`/match/v5/matches/${matchId}/timeline`, [], 5)
 }
 
+export const getSummonerActiveGame = async (puuid: string) => {
+  return await getRequest(`/spectator/v4/active-games/by-summoner/${puuid}`)
+}
 
 export const getSummonerLeagueByAccount = async (accountId: string) => {
   const response = await getRequest(`/league/v4/entries/by-summoner/${accountId}`) 

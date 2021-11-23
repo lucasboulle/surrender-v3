@@ -33,6 +33,7 @@ import { getChampionNameById } from '../../utils/getChampionNameById'
 import {
   CardsContainer, CardsRowContainer, ChampionIcon, Container, GPITitile, InfoStatistics, StatisticTitle, TipText, TipTitile
 } from './styles'
+import { timestampToMatchTime } from '../../utils/timestampToMatchTime'
 
 const teamColors = {
   enemy: Colors.red,
@@ -63,12 +64,18 @@ const Match: React.FC = () => {
   const [enemyParticipants, setEnemyParticipants] = React.useState<IParticipant[]>([])
   const [currentTab, setCurrentTab] = React.useState('Jogadores')
   const [visionScore, setVisionScore] = React.useState<number[]>([0])
-  const randomNumberInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+  const [tipNumber, setTipnumber] = React.useState(0)
+  const tipsGpi = require('../../match-gpi-tips.json')
+  const randomNumberInRange = (min: number, max: number) => ~~(Math.random() * (max - min) + min);
+
+
 
   React.useEffect(() => {
     setMatchParticipant(location.state)
     getDdragonDataSet()
+    setTipnumber(randomNumberInRange(0, 5))
   }, [])
+
 
   React.useEffect(() => {
     if (matchPaticipant) {
@@ -99,72 +106,72 @@ const Match: React.FC = () => {
 
   const playersData = [
     {
-      subject: 'Gold',
-      A: 120,
-      B: 110,
+      subject: 'Farming',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
       fullMark: 150
     },
     {
-      subject: 'Kill',
-      A: 98,
-      B: 130,
+      subject: 'Fighting',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
       fullMark: 150
     },
     {
       subject: 'Objectives',
-      A: 86,
-      B: 130,
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
       fullMark: 150
     },
     {
-      subject: 'Damage',
-      A: 99,
-      B: 100,
+      subject: 'Agression',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
       fullMark: 150
     },
     {
-      subject: 'Heal',
-      A: 85,
-      B: 90,
+      subject: 'Survivability',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
       fullMark: 150
     },
     {
-      subject: 'Participation',
-      A: 65,
-      B: 85,
+      subject: 'Vision',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
       fullMark: 150
     }
   ]
 
   const chartsData = [
     {
-      name: 'Top',
-      uv: 4000,
-      pv: 2400,
+      name: '00:00',
+      uv: randomNumberInRange(2500, 9000),
+      pv: randomNumberInRange(2500, 9000),
       amt: 2400
     },
     {
-      name: 'Jungle',
-      uv: 3000,
-      pv: 1398,
+      name: '10:00',
+      uv: randomNumberInRange(2500, 9000),
+      pv: randomNumberInRange(2500, 9000),
       amt: 2210
     },
     {
-      name: 'Mid',
-      uv: 2000,
-      pv: 9800,
+      name: '20:00',
+      uv: randomNumberInRange(2500, 9000),
+      pv: randomNumberInRange(2500, 9000),
       amt: 2290
     },
     {
-      name: 'Bot',
-      uv: 2780,
-      pv: 3908,
+      name: '30:00',
+      uv: randomNumberInRange(2500, 9000),
+      pv: randomNumberInRange(2500, 9000),
       amt: 2000
     },
     {
-      name: 'Support',
-      uv: 1890,
-      pv: 4800,
+      name: '40:00',
+      uv: randomNumberInRange(2500, 9000),
+      pv: randomNumberInRange(2500, 9000),
       amt: 2181
     },
   ]
@@ -265,23 +272,23 @@ const Match: React.FC = () => {
       ? [
         {
           "name": allyParticipants[0].championName,
-          "value": (allyParticipants[0].assists + allyParticipants[0].kills) / totalOfParticipation*100
+          "value": ((allyParticipants[0].assists + allyParticipants[0].kills) / totalOfParticipation*100)
         },
         {
           "name": allyParticipants[1].championName,
-          "value": (allyParticipants[1].assists + allyParticipants[1].kills) / totalOfParticipation*100
+          "value": ((allyParticipants[1].assists + allyParticipants[1].kills) / totalOfParticipation*100)
         },
         {
           "name": allyParticipants[2].championName,
-          "value": (allyParticipants[2].assists + allyParticipants[2].kills) / totalOfParticipation*100
+          "value": ((allyParticipants[2].assists + allyParticipants[2].kills) / totalOfParticipation*100)
         },
         {
           "name": allyParticipants[3].championName,
-          "value": (allyParticipants[3].assists + allyParticipants[3].kills) / totalOfParticipation*100
+          "value": ((allyParticipants[3].assists + allyParticipants[3].kills) / totalOfParticipation*100)
         },
         {
           "name": allyParticipants[4].championName,
-          "value": (allyParticipants[4].assists + allyParticipants[4].kills) / totalOfParticipation*100
+          "value": ((allyParticipants[4].assists + allyParticipants[4].kills) / totalOfParticipation*100)
         },
       ] : []
       if(allyParticipants.length) {
@@ -345,9 +352,10 @@ const Match: React.FC = () => {
     return dataMax / (dataMax - dataMin);
   };
 
-
-  const off = gradientOffset();
-
+  // const tt = randomNumberInRange(0, 5)
+  // console.log('🚀 ~ file: index.tsx ~ line 352 ~ tt', tt)
+  // console.log(tipsGpi[tt], 'toma')
+  console.log(tipsGpi[tipNumber])
   const MatchCards = () => (
     <CardsRowContainer>
       <CardsContainer>
@@ -462,7 +470,7 @@ const Match: React.FC = () => {
             endAngle={0}
           >
             <Tooltip children={(<></>)} title={''} />
-            <RadialBar angle={15} label={{ fill: '#666', position: 'insideStart' }} background dataKey='uv' />
+            <RadialBar label={{ fill: '#666', position: 'insideStart' }} background dataKey='uv' />
             <Legend iconSize={10} width={120} height={140} layout='vertical' verticalAlign='middle' align="right" />
           </RadialBarChart>
         </CardsContainer>
@@ -499,23 +507,22 @@ const Match: React.FC = () => {
       <>
         <CardsRowContainer>
           <CardsContainer>
-            <TipTitile> Seu maior defeito... </TipTitile>
-            <GPITitile> Damage </GPITitile>
+            <TipTitile> Maior ponto a melhorar... </TipTitile>
+            <GPITitile> {tipsGpi[tipNumber].gpi} </GPITitile>
           </CardsContainer>
           <CardsContainer>
-            <StatisticTitle> 12 Mortes </StatisticTitle>
-            <StatisticTitle> Tomou 5320 de dano  </StatisticTitle>
-            <StatisticTitle> Primeria morte em 12:42  </StatisticTitle>
+            <StatisticTitle> {matchPaticipant?.participantInfo.deaths} Mortes </StatisticTitle>
+            <StatisticTitle> Tomou {matchPaticipant?.participantInfo.totalDamageTaken} de dano  </StatisticTitle>
+            <StatisticTitle> Primeira morte em {timestampToMatchTime(matchPaticipant?.participantInfo.longestTimeSpentLiving || 0)}  </StatisticTitle>
           </CardsContainer>
         </CardsRowContainer>
         <CardsRowContainer>
           <CardsContainer>
-            <ChampionIcon src={'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d6df2d66-13da-4ce4-ae85-8009742c5c94/d6u3f5p-458d106e-1fa6-4235-bc6b-4f1c8a2175d1.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9kNmRmMmQ2Ni0xM2RhLTRjZTQtYWU4NS04MDA5NzQyYzVjOTQvZDZ1M2Y1cC00NThkMTA2ZS0xZmE2LTQyMzUtYmM2Yi00ZjFjOGEyMTc1ZDEuanBnIn1dXX0.uzUn8PfVCLpB_-fmPvx5EKfYr0Xi7jNYyxO_uOf5bMA'} />
+            <ChampionIcon src={tipsGpi[tipNumber].image} />
           </CardsContainer>
           <CardsContainer>
             <TipText>
-              O Crowd Control e o Kill Potential são afetados pela confiabilidade - basicamente a facilidade de aterrissar o CC ou danos. Isso significa que campeões que dependem de tiros de habilidade, como Lux e Ezreal, têm menos confiabilidade do que campeões como Annie ou Malzahar, que simplesmente podem apontar e clicar. Nossas fórmulas fornecem uma vantagem para pistas mais confiáveis porque os ganks são mais simples de executar.
-              Claro, Lux e Ezreal se beneficiam de serem capazes de ultrapassar a maioria dos campeões em composições de cerco / pipa, mas eles simplesmente não têm um potencial de gank tão bom quanto outros campeões, uma vez que sua contribuição tem espaço para erros. É muito difícil identificar um Annie Flash + Q ou um Malzahar Flash + Q.
+              {tipsGpi[tipNumber].text}
             </TipText>
           </CardsContainer>
         </CardsRowContainer>

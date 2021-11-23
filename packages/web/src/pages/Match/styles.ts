@@ -74,7 +74,7 @@ export const GPITitile = styled.p`
 `
 
 export const ChampionIcon = styled.img`
-  width: 560px;
+  width: 660px;
   height: 560px;
   margin-top: 10px;
   margin-bottom: 5px;

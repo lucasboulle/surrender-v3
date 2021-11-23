@@ -43,6 +43,7 @@ import { getSummonerPassiveImage } from '../../utils/getSummonerPassiveImage'
 import { getSummonerSkillsImage } from '../../utils/getSummonerSkillsImage'
 import { useDdragonDataSetForItem } from '../../custom-hooks/useDdragonDataSetForItem'
 import { buildItemUrlWithImageType } from '../../utils/buildItemUrlWithImageType'
+import { buildItemUrl } from '../../utils/buildItemUrl'
 
 const SkillArrowPriority = () => <ArrowRight fontSize={'large'} style={{ color: '#88c0d0', marginTop: '6px' }} />
 
@@ -68,6 +69,7 @@ const Champion: React.FC = () => {
   const [champion, setChampion] = React.useState<any>()
   const [items, setitems] = React.useState<any>()
   const [championLore, setChampionLore] = React.useState<any>()
+  const itemsRandom = [3031, 3011, 3033, 3035, 3040, 3041, 3042, 3044, 3046, 3047, 3050, 3051, 3053, 3057, 3066, 3078, 3082, 3085, 3083, 3091, 3094, 3105, 3107, 3109, 3111, 3112, 3110, 3121, 3123, 3134, 3135, 3139, 3211]
   const randomNumberInRange = (min: number, max: number) => ~~(Math.random() * (max - min) + min)
   console.log('🚀 ~ file: index.tsx ~ line 65 ~ setChampionLore', championLore)
   const styles = useStyles()
@@ -106,63 +108,102 @@ const Champion: React.FC = () => {
 
   const data = [
     {
-      name: '10.17', uv: 45, amt: 2400,
+      name: '10.17', uv: randomNumberInRange(45, 55), amt: 2400,
     },
     {
-      name: '10.18', uv: 46, amt: 2210,
+      name: '10.18', uv: randomNumberInRange(45, 55), amt: 2210,
     },
     {
-      name: '10.19', uv: 48, amt: 2290,
+      name: '10.19', uv: randomNumberInRange(45, 55), amt: 2290,
     },
     {
-      name: '10.20', uv: 48, amt: 2000,
+      name: '10.20', uv: randomNumberInRange(45, 55), amt: 2000,
     },
     {
-      name: '10.21', uv: 49, amt: 2181,
+      name: '10.21', uv: randomNumberInRange(45, 55), amt: 2181,
     },
     {
-      name: '10.22', uv: 49, amt: 2500,
+      name: '10.22', uv: randomNumberInRange(45, 55), amt: 2500,
     },
     {
-      name: '10.23', uv: 47, amt: 2100,
+      name: '10.23', uv: randomNumberInRange(45, 55), amt: 2100,
     },
   ]
 
-  const playersData = [
+  const playersDataWW = [
     {
-      subject: 'Gold',
+      subject: 'Fighting',
       A: 120,
       B: 110,
       fullMark: 150
     },
     {
-      subject: 'Kill',
+      subject: 'Farming',
       A: 98,
-      B: 130,
+      B: 90,
+      fullMark: 150
+    },
+    {
+      subject: 'Agression',
+      A: 16,
+      B: 90,
+      fullMark: 150
+    },
+    {
+      subject: 'Survivability',
+      A: 33,
+      B: 80,
       fullMark: 150
     },
     {
       subject: 'Objectives',
-      A: 86,
-      B: 130,
-      fullMark: 150
-    },
-    {
-      subject: 'Damage',
-      A: 99,
-      B: 100,
-      fullMark: 150
-    },
-    {
-      subject: 'Heal',
       A: 85,
       B: 90,
       fullMark: 150
     },
     {
-      subject: 'Participation',
+      subject: 'Vision',
       A: 65,
       B: 85,
+      fullMark: 150
+    }
+  ]
+
+  const playersData = [
+    {
+      subject: 'Farming',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
+      fullMark: 150
+    },
+    {
+      subject: 'Fighting',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
+      fullMark: 150
+    },
+    {
+      subject: 'Objectives',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
+      fullMark: 150
+    },
+    {
+      subject: 'Agression',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
+      fullMark: 150
+    },
+    {
+      subject: 'Survivability',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
+      fullMark: 150
+    },
+    {
+      subject: 'Vision',
+      A: randomNumberInRange(40, 130),
+      B: randomNumberInRange(50, 130),
       fullMark: 150
     }
   ]
@@ -223,7 +264,7 @@ const Champion: React.FC = () => {
                 outerRadius={150}
                 width={500}
                 height={500}
-                data={playersData}
+                data={champion.name === 'Warwick' ? playersDataWW : playersData}
                 className={styles.hexGrid}
               >
                 <PolarGrid stroke={Colors.comment} />
@@ -250,21 +291,20 @@ const Champion: React.FC = () => {
             <SimpleChart data={data} />
             </ColumnContainer>
             <ColumnContainer>
-              <InfoTitle style={{ color: Colors.pink }}> Algumas dicas fo {champion.name} pra você...</InfoTitle>
+              <InfoTitle style={{ color: Colors.pink }}> Algumas dicas do {champion.name} pra você...</InfoTitle>
               {championLore.allytips.map((tip: string) => (
                 <Text style={{ color: Colors.red }}> {tip} </Text>
               ))}
             </ColumnContainer>
           </ChartsContainer>
-          <Divider color="purple" />
           <StatsChampionContainer>
               <InfoTitle style={{ color: Colors.pink }} > Items core</InfoTitle>
             <RowContainer>
               {/* <ItemPurchased src={} /> */}
-              <ItemPurchased src={blackCleaverExample} />
-              <ItemPurchased src={blackCleaverExample} />
-              <ItemPurchased src={blackCleaverExample} />
-              <ItemPurchased src={blackCleaverExample} />
+              <ItemPurchased src={buildItemUrl(itemsRandom[randomNumberInRange(0, 32)])} />
+              <ItemPurchased src={buildItemUrl(itemsRandom[randomNumberInRange(0, 32)])} />
+              <ItemPurchased src={buildItemUrl(itemsRandom[randomNumberInRange(0, 32)])} />
+              <ItemPurchased src={buildItemUrl(itemsRandom[randomNumberInRange(0, 32)])} />
             </RowContainer>
           </StatsChampionContainer>
         </>

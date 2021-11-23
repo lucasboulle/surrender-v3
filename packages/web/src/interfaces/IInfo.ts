@@ -15,4 +15,5 @@ export interface IInfo {
   queueId: number
   teams: ITeam
   tournamenCode?: string
+  gameEndTimestamp: number
 }

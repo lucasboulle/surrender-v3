@@ -1,0 +1,37 @@
+import { IParticipant } from "../interfaces/IParticipant";
+
+export const extractNeuralParametersForAgression = (participant: IParticipant) => {
+  return {
+    assists: participant.assists,
+    championId: participant.championId,
+    deaths: participant.deaths,
+    doubleKills: participant.doubleKills,
+    firstBloodAssist: participant.firstBloodAssist,
+    firstBloodKill: participant.firstBloodKill,
+    kills: participant.kills,
+    largestKillingSpree: participant.largestKillingSpree,
+    largestMultiKill: participant.largestMultiKill,
+    magicDamageDealt: participant.magicDamageDealt,
+    magicDamageDealtToChampions: participant.magicDamageDealtToChampions,
+    magicDamageTaken: participant.magicDamageTaken,
+    objectivesStolen: participant.objectivesStolen,
+    pentaKills: participant.pentaKills,
+    physicalDamageDealt: participant.physicalDamageDealt,
+    physicalDamageTaken: participant.physicalDamageTaken,
+    totalDamageDealt: participant.totalDamageDealt,
+    totalDamageDealtToChampions: participant.totalDamageDealtToChampions,
+    totalDamageShieldedOnTeammates: participant.totalDamageShieldedOnTeammates,
+    totalDamageTaken: participant.totalDamageTaken,
+    totalHeal: participant.totalHeal,
+    totalHealsOnTeammates: participant.totalHealsOnTeammates,
+    totalTimeSpentDead: participant.totalTimeSpentDead,
+    totalUnitsHealed: participant.totalUnitsHealed,
+    tripleKills: participant.tripleKills,
+    quadraKills: participant.quadraKills,
+    trueDamageDealt: participant.trueDamageDealt,
+    trueDamageDealtToChampions: participant.trueDamageDealtToChampions,
+    trueDamageTaken: participant.trueDamageTaken,
+    unrealKills: participant.unrealKills,
+    win: participant.win
+  }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "type": "agression",
+    "image": "https://staticg.sportskeeda.com/editor/2021/01/ec772-16110609033405-800.jpg",
+    "gpi": "agressividade",
+    "text":  "O Crowd Control e o Kill Potential são afetados pela confiabilidade - basicamente a facilidade de aterrissar o CC ou danos. Isso significa que campeões que dependem de tiros de habilidade, como Lux e Ezreal, têm menos confiabilidade do que campeões como Annie ou Malzahar, que simplesmente podem apontar e clicar. Os ganks são mais simples de executar. Claro, Lux e Ezreal se beneficiam de serem capazes de ultrapassar a maioria dos campeões em composições de cerco, mas eles simplesmente não têm um potencial de gank tão bom quanto outros campeões, uma vez que sua contribuição tem espaço para erros. É muito difícil identificar um Annie Flash + Q ou um Malzahar Flash + R."
+  },
+  {
+    "type": "fighting",
+    "image": "https://i.ytimg.com/vi/8KMOTdLCIsw/maxresdefault.jpg",
+    "gpi": "combate",
+    "text":  "Lutar representa seu desempenho e participação em lutas e escaramuças de equipe. É calculado com base em suas mortes e assistências, o dano que você causa e recebe, frequência de luta, posicionamento e tomada de decisão durante negociações e escaramuças. Um bom tanque inimigo saberá como forçar o time inimigo a atacá-lo. Ou, pelo menos, como atrair toda a atenção para si. Mas você deve resistir à tentação de usar seus melhores feitiços ou desperdiçar seus ataques neste alvo, precisamente porque ele tem muito HP, muita resistência a danos e causa poucos danos próprios na maioria dos casos. Cair nessa armadilha permitirá que os jogadores de sua equipe o derrubem facilmente, fazendo um uso otimizado das habilidades que possuem."
+  },
+  {
+    "type": "vision",
+    "image": "https://skillinked.com/images/news/content/placement-wards-league-of-legends.png",
+    "gpi": "visão",
+    "text":  "Uma ward é uma unidade implantável que remove a névoa da guerra em uma determinada área do mapa. Visão não é apenas comprar e posicionar wards. Nem sempre é uma unidade e pode ser concedida tanto por campeões quanto por itens que eles compram. No início do jogo, o jogador pode escolher entre dois tipos diferentes de bugigangas. É importante que o campeão escolha o correto para auxiliá-lo na fase de laning. Para a maioria dos campeões, você gostaria de pegar o warding totem porque ele concede a você uma visão que lhe permitirá wardar sua rota. A outra opção (que não é tão favorecida por causa de suas limitações) é o Oracle Lens. Este é um item que pode impedir a visão ao redor do mapa. Este item geralmente não é comprado no início do jogo porque não beneficia a você nem a sua equipe. Em vez disso, ele é pego no meio do jogo pelo Jungler e comprado depois que o Suporte conclui sua missão de proteção. Alguns profissionais, entretanto, pegam esse item no nível 1 para proteger sua selva ou negar áreas estratégicas logo no início."
+  },
+  {
+    "type": "survivability",
+    "image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d6df2d66-13da-4ce4-ae85-8009742c5c94/d6u3f5p-458d106e-1fa6-4235-bc6b-4f1c8a2175d1.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9kNmRmMmQ2Ni0xM2RhLTRjZTQtYWU4NS04MDA5NzQyYzVjOTQvZDZ1M2Y1cC00NThkMTA2ZS0xZmE2LTQyMzUtYmM2Yi00ZjFjOGEyMTc1ZDEuanBnIn1dXX0.uzUn8PfVCLpB_-fmPvx5EKfYr0Xi7jNYyxO_uOf5bMA",
+    "gpi": "consistência",
+    "text":  "Você sempre pode tentar apenas farm up e esperar por ganks, se você sabe como gerenciar uma onda corretamente, você deve ser capaz de controlar a fase da rota facilmente e evitar ganks ou receber alguns de seu próprio jungler. Além disso, preste atenção a onde o jungler inimigo começou, saiba como proteger em torno dos minutos 3-3: 10 para fazer a contagemd e wards e não ser gankado. Quando você voltar, tente sempre trazer uma pink ward e proteger os dois lados do rio ou um arbusto na selva inimiga, dessa forma você localiza ganks ou roamings de suportes rapidamente e sabe quando recuar."
+  },
+  {
+    "type": "farming",
+    "image": "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d6df2d66-13da-4ce4-ae85-8009742c5c94/d6u3f5p-458d106e-1fa6-4235-bc6b-4f1c8a2175d1.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTpmaWxlLmRvd25sb2FkIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9kNmRmMmQ2Ni0xM2RhLTRjZTQtYWU4NS04MDA5NzQyYzVjOTQvZDZ1M2Y1cC00NThkMTA2ZS0xZmE2LTQyMzUtYmM2Yi00ZjFjOGEyMTc1ZDEuanBnIn1dXX0.uzUn8PfVCLpB_-fmPvx5EKfYr0Xi7jNYyxO_uOf5bMA",
+    "gpi": "Farming",
+    "text":  "Garantir o último golpe em um minion ou monstro oferece XP e ouro. Durante a fase de rotas, você dependerá muito dos minions para lhe fornecer ouro. Se você conseguir proteger muitos desses minions e ganhar vantagem sobre o laner inimigo, terá mais ouro do que ele. Ter uma liderança de ouro sobre a laner inimigo lhe dará um melhor primeiro retorno e permitirá que você pegue seus itens principais antes do inimigo. Conseguir um item melhor o ajudará a ganhar negociações ou a sobreviver à fase de rotas. Por exemplo, um ADC com mais de 1300 de ouro permitiria que eles obtivessem um Moonquiver, enquanto um ADC com 900 de ouro só seria capaz de obter uma Picareta. O campeão com Moonquiver terá mais dano, o que permitirá que eles ganhem um skirmish. Ganhar uma pequena liderança de CS pode levar a abates, objetivos e muito, muito mais. É por isso que é obrugatório garantir o máximo de CS humanamente possível durante a fase de rotas."
+  },
+  {
+    "type": "objectives",
+    "image": "https://images2.minutemediacdn.com/image/fetch/c_fill,g_auto,f_auto,h_1080,w_1920/https:%2F%2Fblogoflegends.com%2Ffiles%2F2018%2F11%2Fleague-of-legends-2015-05-15-18-08-20-10.jpg",
+    "gpi": "Objetivos",
+    "text":  "Pegar o Dragão por conta própria pode ser um negócio arriscado. Você deve ter prioridade nas pistas próximas se quiser atingir o objetivo, de forma que essas pistas possam girar e ajudá-lo se necessário. Se você tentar proteger o objetivo sem prioridade nas pistas próximas e o Jungler inimigo aparecer, eles não irão girar e ajudá-lo a protegê-lo porque eles têm mais para viajar. A maneira mais comum de saber se você tem prioridade é olhando para as ondas de minions. Se seus aliados estão empurrando, eles têm prioridade. Se eles estiverem sendo empurrados, você não terá nenhuma prioridade. Se seus aliados forem fortes em um 2v2, eles também terão prioridade."
+  }
+]
