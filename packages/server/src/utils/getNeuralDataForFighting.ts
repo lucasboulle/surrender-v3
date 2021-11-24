@@ -10,11 +10,19 @@ export const getNeuralDataForFighting = async () => {
     const chunkedArr = match.match.info.participants.map((participant: IParticipant) => {
       return {
         input: extractNeuralParametersFromRiotPayload(participant),
-        output: {win: participant.totalDamageDealt}
+        output: {win: (participant.totalDamageDealt /1000000)*8}
       }
     })
     return chunkedArr
   })
 
   return _.flatten(chunkedNeuralData)
+}
+
+
+export const getNeuralDataForIndividualFighting = async (participant: IParticipant) => {
+  return {
+    input: extractNeuralParametersFromRiotPayload(participant),
+    output: {win: participant.totalDamageDealt/1000000}
+  }
 }

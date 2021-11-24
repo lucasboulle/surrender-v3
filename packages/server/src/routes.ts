@@ -7,6 +7,14 @@ import { getSummonerByName, getSummonerByAccount, getSummonerEntriesBySummonerId
 import { extractNeuralParametersFromRiotPayload } from './utils/extractNeuralParametersFromRiotPayload'
 import { getNeuralDataFromTraining } from './utils/getNeuralDataFromTraining'
 import * as dataset from '../data-assets/match-by-id-response-example.json' 
+import { getNeuralDataForAgression } from './utils/getNeuralDataForAgression'
+import { getNeuralDataFarming } from './utils/getNeuralDataForFarming'
+import { getNeuralDataForFighting, getNeuralDataForIndividualFighting } from './utils/getNeuralDataForFighting'
+import { getNeuralDataForObjective } from './utils/getNeuralDataForObjective'
+import { getNeuralDataForSurvivability } from './utils/getNeuralDataForSuvivability'
+import { getNeuralDataForVision } from './utils/getNeuralDataForVision'
+import { extractNeuralParametersForAgression } from './utils/extractNeuralParametersForAgression'
+import { extractNeuralParametersForFighting } from './utils/extractNeuralParametersForFighting'
 
 const routes = express.Router()
 const unprotectedRoutes = [
@@ -21,6 +29,12 @@ const config = {
 }
 
 const net = new brain.NeuralNetwork(config)
+const netAgression = new brain.NeuralNetwork(config)
+const netFarming = new brain.NeuralNetwork(config)
+const netFighting = new brain.NeuralNetwork(config)
+const netObjective = new brain.NeuralNetwork(config)
+const netSurvivability = new brain.NeuralNetwork(config)
+const netVision = new brain.NeuralNetwork(config)
 
 const train = async (train?: {
   input: number[]
@@ -31,8 +45,24 @@ const train = async (train?: {
   } else {
     const contentData: any = await getNeuralDataFromTraining()
 
-    net.train(contentData);
-    let winRatio = 0
+    const agression: any = await getNeuralDataForAgression()
+    const farming: any = await getNeuralDataFarming()
+    const fighting: any = await getNeuralDataForFighting()
+    const objective: any = await getNeuralDataForObjective()
+    const survivability: any = await getNeuralDataForSurvivability()
+    const vision: any = await getNeuralDataForVision()
+
+    net.train(contentData)
+    netAgression.train(agression)
+    netFarming.train(farming)
+    netFighting.train(fighting)
+    netObjective.train(objective)
+    netSurvivability.train(survivability)
+    netVision.train(vision)
+    console.log('trained data!')
+
+
+    // let winRatio = 0
     // for (let index = 0; index < dataset.matches.length; index++) {
     //   for (let j = 0; j < dataset.matches[index].match.info.participants.length; j++) {
     //     //@ts-ignore
@@ -131,8 +161,16 @@ routes.get('/match/by-id', async (request, response) => {
 
 routes.get('/matchlist/by-puuid', async (request, response) => {
   const { query } = request
-
-  return response.json({matchList: (await getMatchlistByPuuid(String(query.puuid))) })
+  const matchList = await getMatchlistByPuuid(String(query.puuid))
+  // const neuralData = getNeuralDataForIndividualFighting(matchList[0].participantInfo)
+  // const neuralData2 = getNeuralDataForIndividualFighting(matchList[1].participantInfo)
+  // const neuralData3 = getNeuralDataForIndividualFighting(matchList[2].participantInfo)
+  // const neuralData4 = getNeuralDataForIndividualFighting(matchList[3].participantInfo)
+  // console.log(netFighting.run(neuralData))
+  // console.log(netFighting.run(neuralData2))
+  // console.log(netFighting.run(neuralData3))
+  // console.log(netFighting.run(neuralData4))
+  return response.json({matchList: (matchList) })
 })
 
 routes.get('/timelines/by-match', async (request, response) => {

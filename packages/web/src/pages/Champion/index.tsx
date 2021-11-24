@@ -145,7 +145,7 @@ const Champion: React.FC = () => {
     },
     {
       subject: 'Agression',
-      A: 16,
+      A: 116,
       B: 90,
       fullMark: 150
     },
@@ -264,7 +264,7 @@ const Champion: React.FC = () => {
                 outerRadius={150}
                 width={500}
                 height={500}
-                data={champion.name === 'Warwick' ? playersDataWW : playersData}
+                data={champion.name === 'Viego' ? playersDataWW : playersData}
                 className={styles.hexGrid}
               >
                 <PolarGrid stroke={Colors.comment} />
